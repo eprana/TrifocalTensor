@@ -81,6 +81,8 @@ int main(int argc, char *argv[])
 
   bool done = false;
   while(!done) {
+
+
     // Draw points on image1
     for(int i=0; i<list1.rows(); ++i)
       fill_circle(screen, list1(i,0), list1(i,1), 3, red);
@@ -99,6 +101,22 @@ int main(int argc, char *argv[])
     // Management of the events
     SDL_Event e;
     while(SDL_PollEvent(&e)) {
+
+      // Mouse event
+      if(e.type == SDL_MOUSEBUTTONDOWN) {
+        // Left clic
+        if(e.button.button == SDL_BUTTON_LEFT) {
+          if(e.button.x <= image1->w) {
+            std::cout <<"first mage"<<std::endl;
+          }
+          else if(e.button.x <= image2->w + image1->w) {
+            std::cout << "Second image" << std::endl;
+          }
+          else if(e.button.x <= image3->w + image2->w + image1->w) {
+            std::cout << "Third image" << std::endl;
+          }
+        }
+      }
       // Closing of the window
        if(e.type == SDL_QUIT) {
         done = true;
