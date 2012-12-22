@@ -108,12 +108,19 @@ int main(int argc, char *argv[])
         if(e.button.button == SDL_BUTTON_LEFT) {
           if(e.button.x <= image1->w) {
             std::cout <<"first mage"<<std::endl;
+            list1(0,0) = e.button.x;
+            list1(0,1) = e.button.y;
+
           }
           else if(e.button.x <= image2->w + image1->w) {
             std::cout << "Second image" << std::endl;
+            list2(0,0) = e.button.x - image1->w;
+            list2(0,1) = e.button.y;
           }
           else if(e.button.x <= image3->w + image2->w + image1->w) {
             std::cout << "Third image" << std::endl;
+            list3(0,0) = e.button.x - image1->w - image2->w;
+            list3(0,1) = e.button.y;
           }
         }
       }
