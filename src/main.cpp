@@ -8,7 +8,17 @@ static const size_t WINDOW_WIDTH = 1000;
 static const size_t WINDOW_HEIGHT = 800;
 static const size_t BYTES_PER_PIXEL = 32;
 
+SDL_Surface* loadPicture(SDL_Surface* pscreen, size_t width, size_t height, int r, int g, int b, int x, int y) {
+    SDL_Surface* surface = NULL;
+    surface = SDL_CreateRGBSurface(SDL_HWSURFACE, width, height, BYTES_PER_PIXEL, 0, 0, 0, 0);
+    SDL_FillRect(surface, NULL, SDL_MapRGB(pscreen->format, r, g, b));
+    SDL_Rect position;
+    position.x = x;
+    position.y = y;
+    SDL_BlitSurface(surface, NULL, pscreen, &position);
 
+    return surface;
+}
 
 int main() {
     // Load the pictures 
@@ -22,10 +32,6 @@ int main() {
             return EXIT_FAILURE;
     }
     // Open the window
-    
-    
-
-    // Creation of the variables
     SDL_Surface *screen = NULL;
     screen = SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BYTES_PER_PIXEL, SDL_HWSURFACE);
     if (screen == NULL) {
@@ -34,13 +40,21 @@ int main() {
     }
     SDL_WM_SetCaption("The Best Trifocal Tensor Ever", NULL);
 
-
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 201, 191, 126));
+    
 
+    // Creation of the variables
+    SDL_Surface* firstPicture = loadPicture(screen, 220, 180, 255, 255, 255, 0, 0);
+    SDL_Surface* secondPicture = loadPicture(screen, 220, 180, 255, 255, 255, 0, 200);
+    SDL_Surface* thirdPicture = loadPicture(screen, 220, 180, 255, 255, 255, 0, 400);
+
+        
     // Diplayed code
     bool done = false;
     while(!done) {
 
+
+        
         // Updating of the display
         SDL_Flip(screen);
 
@@ -61,6 +75,11 @@ int main() {
         }
     }
  
+    // Free the surfaces
+    SDL_FreeSurface(firstPicture);
+    SDL_FreeSurface(secondPicture);
+    SDL_FreeSurface(thirdPicture);
+
     SDL_Quit(); 
 
     // Select the points on two pictures
