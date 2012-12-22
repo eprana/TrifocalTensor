@@ -1,0 +1,54 @@
+GCC =  g++
+CFLAGS = -Wall -O2 -g #-pg #gprof -I include
+LDFLAGS = -lSDL -lSDL_image
+
+GCCFLAGS += $(INCLUDES)
+
+OBJ      = MathIO.o draw.o main.o
+RM       = rm -f
+BIN      = trifocal
+DIRNAME  = $(shell basename $$PWD)
+BACKUP   = $(shell date +`basename $$PWD`-%m.%d.%H.%M.tgz)
+STDNAME  = $(DIRNAME).tgz
+
+all: $(BIN)
+
+$(BIN): $(OBJ)
+	$(GCC) $(GCCFLAGS) $(OBJ) $(LDFLAGS) $(INCLUDES)  -o $(BIN)
+	@echo "--------------------------------------------------------------"
+	@echo "                 to execute type: ./$(BIN) &"
+	@echo "--------------------------------------------------------------"
+
+MathIO.o: MathIO.cpp MathIO.hpp 
+	@echo "compile MathIO"
+	$(GCC) $(GCCFLAGS) -c $<  
+	@echo "done..."
+
+draw.o: draw.cpp draw.hpp 
+	@echo "compile MathIO"
+	$(GCC) $(GCCFLAGS) -c $<  
+	@echo "done..."
+
+main.o: main.cpp MathIO.o draw.o
+	@echo "compile main"
+	$(GCC) $(GCCFLAGS) -c $<  
+	@echo "done..."
+
+clean:	
+	@echo "**************************"
+	@echo "CLEAN"
+	@echo "**************************"
+	$(RM) *~ $(OBJ) $(BIN)  
+
+bigclean:
+	@echo "**************************"
+	@echo "BIG CLEAN"
+	@echo "**************************"
+	find . -name '*~' -exec rm -fv {} \;
+	$(RM) *~ $(OBJ) $(BIN) output/*
+
+tar: clean 
+	@echo "**************************"
+	@echo "TAR"
+	@echo "**************************"
+	cd .. && tar cvfz $(BACKUP) $(DIRNAME)

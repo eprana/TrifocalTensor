@@ -1,5 +1,5 @@
 EXE = trifocal
-LDFLAGS = -lSDL 
+LDFLAGS = -lSDL -lSDL_image
 CFLAGS=-Wall -g -I include
 GCC = g++
 
