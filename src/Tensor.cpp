@@ -7,7 +7,7 @@ Tensor::Tensor(int i, int j, int k) {
     this->j = j;
     this->k = k;
 
-    // Creation of the first tab
+    // Creation of the matrix (maybe we can use the Eigen librabry ... )
     T = new double**[i];
     for(int l = 0; l < i; ++l) {
         T[l] = new double*[j];
