@@ -20,7 +20,7 @@ public:
     ~Tensor();
 
     // Operators
-    Tensor operator()(int i, int j, int k) {
+    double operator()(int i, int j, int k) {
         return T[i][k][k];
     }
 
