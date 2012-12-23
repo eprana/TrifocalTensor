@@ -51,23 +51,36 @@ namespace kn {
    */
   template <class EigenMatrix>
   void loadMatrix(EigenMatrix &M, const std::string &fileName){
-    // open the file
+    // Open the file
     std::ifstream matrixFile(fileName.c_str());
     if(!matrixFile.is_open()){
       std::cerr << "error opening file : " << fileName << std::endl;
       exit(0);				
     }
 
-    // read header
-    unsigned int row    = 0;
-    unsigned int column = 0;
-    bool header = readMatrixHeader(matrixFile,row,column);
+    matrixFile.peek();
+    if(matrixFile.eof()) {
+      M.resize(7,3);
+      for(int i = 0; i < 7; ++i) {
+        M(i,0) = 0.0;
+        M(i,1) = 0.0;
+        M(i,2) = 1;
+      }
 
-    // read the data
-    if(header) readMatrixFromHeader(M,matrixFile,row,column);
-    else readMatrix(M,matrixFile);
+    }
+    if(!matrixFile.eof()) {
+      unsigned int row    = 0;
+      unsigned int column = 0;
+      bool header = readMatrixHeader(matrixFile,row,column);
+      std::cout << header << std::endl;
 
-    // close
+      // Read the data
+      if(header) readMatrixFromHeader(M,matrixFile,row,column);
+      else readMatrix(M,matrixFile);
+    }
+    
+
+    // Close
     matrixFile.close();
   }
 

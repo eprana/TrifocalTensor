@@ -33,6 +33,11 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
   }
 
+  // Creation of variables
+  int count1 = 0;
+  int count2 = 0;
+  int count3 = 0;
+
   // Load some images
   SDL_Surface *image1 = IMG_Load("input/image1.jpg");
   SDL_Surface *image2 = IMG_Load("input/image2.jpg");
@@ -85,15 +90,21 @@ int main(int argc, char *argv[])
 
     // Draw points on image1
     for(int i=0; i<list1.rows(); ++i)
-      fill_circle(screen, list1(i,0), list1(i,1), 3, red);
+      if(list1(i,0) != 0 && list1(i,1) != 0) {
+        fill_circle(screen, list1(i,0), list1(i,1), 3, red);
+      }
 
     // Draw points on image2
     for(int i=0; i<list2.rows(); ++i)
-      fill_circle(screen, list2(i,0)+image1->w, list2(i,1), 3, blue);
+      if(list2(i,0) != 0 && list2(i,1) != 0) {
+       fill_circle(screen, list2(i,0)+image1->w, list2(i,1), 3, blue);
+      }
 
     // Draw points on image3
     for(int i=0; i<list3.rows(); ++i)
-      fill_circle(screen, list3(i,0)+image1->w+image2->w, list3(i,1), 3, yellow);
+      if(list3(i,0) != 0 && list3(i,1) != 0) {
+        fill_circle(screen, list3(i,0)+image1->w+image2->w, list3(i,1), 3, yellow);
+      }
 
     // Display everything
     SDL_Flip(screen);
@@ -107,20 +118,31 @@ int main(int argc, char *argv[])
         // Left clic
         if(e.button.button == SDL_BUTTON_LEFT) {
           if(e.button.x <= image1->w) {
-            std::cout <<"first mage"<<std::endl;
-            list1(0,0) = e.button.x;
-            list1(0,1) = e.button.y;
-
+            kn::saveMatrix(list1,"/tmp/myList.mat");
+            list1(count1,0) = e.button.x;
+            list1(count1,1) = e.button.y;
+            count1++;
+            if(count1== 7) {
+              count1 = 0;  
+            } 
           }
-          else if(e.button.x <= image2->w + image1->w) {
+          if(image1->w < e.button.x && e.button.x <= image2->w + image1->w) {
             std::cout << "Second image" << std::endl;
-            list2(0,0) = e.button.x - image1->w;
-            list2(0,1) = e.button.y;
+            list2(count2,0) = e.button.x - image1->w;
+            list2(count2,1) = e.button.y;
+            count2++;
+            if(count2++ == 7) {
+              count2 = 0;  
+            } 
           }
-          else if(e.button.x <= image3->w + image2->w + image1->w) {
+          if(image1->w + image2->w < e.button.x && e.button.x <= image3->w + image2->w + image1->w) {
             std::cout << "Third image" << std::endl;
-            list3(0,0) = e.button.x - image1->w - image2->w;
-            list3(0,1) = e.button.y;
+            list3(count3,0) = e.button.x - image1->w - image2->w;
+            list3(count3,1) = e.button.y;
+            count3++;
+            if(count3++ == 7) {
+              count3 = 0;  
+            } 
           }
         }
       }
