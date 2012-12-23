@@ -37,6 +37,9 @@ int main(int argc, char *argv[])
   int count1 = 0;
   int count2 = 0;
   int count3 = 0;
+  VectorXd t(27);
+  Tensor tensor(3, 3, 3);
+  MatrixXd A(28, 27);
 
   // Load some images
   SDL_Surface *image1 = IMG_Load("input/image1.jpg");
@@ -74,6 +77,7 @@ int main(int argc, char *argv[])
   kn::loadMatrix(list1,"input/list1.list");
   kn::loadMatrix(list2,"input/list2.list");
   kn::loadMatrix(list3,"input/list3.list");
+  Eigen::VectorXd b(27);
 
 
   // Save a list
@@ -86,6 +90,36 @@ int main(int argc, char *argv[])
 
   bool done = false;
   while(!done) {
+
+    // Calculation of the matrix A in At = 0
+    if(list1.rows() >= 7 && list2.rows() >= 7) {
+      for(int p=0; p<7; ++p) {
+        for(int i=0; i<2; ++i) {
+          for(int l=0; l<2; ++l) {
+            for(int k=0; k<3; ++k) {
+              A(4*p + 2*i + l, 9*k + 3*i + l) -= (list1(p,k)*list2(p,2)*list3(p,2));
+              A(4*p + 2*i + l, 9*k + 3*i + 2) += list1(p,k)*list2(p,2)*list3(p,l);
+              A(4*p + 2*i + l, 9*k + 6 + l) += list1(p,k)*list2(p,i)*list3(p,2);
+              A(4*p + 2*i + l, 9*k + 8) -= list1(p,k)*list2(p,0)*list3(p,l);
+            }
+
+          }
+        }
+      } 
+    }
+
+    // Apply the SVD
+    Eigen::JacobiSVD<MatrixXd> jacobiA;
+    jacobiA.compute(A, ComputeThinU | ComputeThinV);
+    MatrixXd U = jacobiA.matrixU();
+    MatrixXd V = jacobiA.matrixV();
+
+
+    // Calculate t
+    for(int i=0; i< V.rows(); ++i) {
+      t(i) = V(i, V.cols() -1);
+      std::cout << t(i) << std::endl;
+    }
 
 
     // Draw points on image1
@@ -118,9 +152,9 @@ int main(int argc, char *argv[])
         // Left clic
         if(e.button.button == SDL_BUTTON_LEFT) {
           if(e.button.x <= image1->w) {
-            kn::saveMatrix(list1,"/tmp/myList.mat");
             list1(count1,0) = e.button.x;
             list1(count1,1) = e.button.y;
+            kn::saveMatrix(list1,"/tmp/myList1.mat");
             count1++;
             if(count1== 7) {
               count1 = 0;  
@@ -130,6 +164,7 @@ int main(int argc, char *argv[])
             std::cout << "Second image" << std::endl;
             list2(count2,0) = e.button.x - image1->w;
             list2(count2,1) = e.button.y;
+            kn::saveMatrix(list1,"/tmp/myList2.mat");
             count2++;
             if(count2++ == 7) {
               count2 = 0;  
@@ -139,6 +174,7 @@ int main(int argc, char *argv[])
             std::cout << "Third image" << std::endl;
             list3(count3,0) = e.button.x - image1->w - image2->w;
             list3(count3,1) = e.button.y;
+            kn::saveMatrix(list3,"/tmp/myList1.mat");
             count3++;
             if(count3++ == 7) {
               count3 = 0;  
