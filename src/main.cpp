@@ -40,6 +40,17 @@ int main(int argc, char *argv[])
   VectorXd t(27);
   Tensor tensor(3, 3, 3);
   MatrixXd A(28, 27);
+  for(int i = 0; i < A.rows(); ++i){
+    for(int j= 0; j < A.cols(); ++j) {
+      A(i,j) = 0;
+    }
+  }
+  MatrixXd B(4,3);
+  for(int i = 0; i < B.rows(); ++i){
+    for(int j= 0; j < B.cols(); ++j) {
+      B(i,j) = 0;
+    }
+  }
 
   // Load some images
   SDL_Surface *image1 = IMG_Load("input/image1.jpg");
@@ -78,6 +89,9 @@ int main(int argc, char *argv[])
   kn::loadMatrix(list2,"input/list2.list");
   kn::loadMatrix(list3,"input/list3.list");
   Eigen::VectorXd b(27);
+  for(int i = 0; i < t.rows(); ++i){
+      t(i) = 0;
+  }
 
 
   // Save a list
@@ -97,7 +111,7 @@ int main(int argc, char *argv[])
         for(int i=0; i<2; ++i) {
           for(int l=0; l<2; ++l) {
             for(int k=0; k<3; ++k) {
-              A(4*p + 2*i + l, 9*k + 3*i + l) -= (list1(p,k)*list2(p,2)*list3(p,2));
+              A(4*p + 2*i + l, 9*k + 3*i + l) -= list1(p,k)*list2(p,2)*list3(p,2);
               A(4*p + 2*i + l, 9*k + 3*i + 2) += list1(p,k)*list2(p,2)*list3(p,l);
               A(4*p + 2*i + l, 9*k + 6 + l) += list1(p,k)*list2(p,i)*list3(p,2);
               A(4*p + 2*i + l, 9*k + 8) -= list1(p,k)*list2(p,0)*list3(p,l);
@@ -118,7 +132,31 @@ int main(int argc, char *argv[])
     // Calculate t
     for(int i=0; i< V.rows(); ++i) {
       t(i) = V(i, V.cols() -1);
-      std::cout << t(i) << std::endl;
+      //std::cout << t(i) << std::endl;
+    }
+
+    // Put t in T
+    int countT = 0;
+    for(int i = 0; i< tensor.getI(); ++i) {
+      for(int j = 0; j<tensor.getJ(); ++j) {
+        for(int k=0; k<tensor.getK(); ++k) {
+          // See if there is another technique to fill T
+          tensor.setT(i,j,k, t(countT));
+          countT++;
+        }
+      }
+    } 
+
+    // Calculation of the matrix B in Bx = 0 for p= 7 !!  and x''
+    if(list1.rows() >7 && list2.rows() > 7) {
+      for(int i = 0; i<2; ++i) {
+        for(int j = 0; j<2; ++j) {
+          for(int k = 0; k<3; ++k) {
+            B(i+j, i) += list1(7,k)*(list2(7,2)*tensor(i,2,k) - list2(7,i)*tensor(2,2,k));
+            B(i+j, 2) += list1(7,k)*(list2(7,i)*tensor(2,j,k) - list2(7,2)*tensor(i,j,k));
+          }
+        }
+      }
     }
 
 
