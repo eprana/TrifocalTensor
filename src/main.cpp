@@ -133,68 +133,14 @@ int main(int argc, char *argv[])
     }
 
     // Put t in T
-    int countT = 0;
     for(int i = 0; i< tensor.getI(); ++i) {
       for(int j = 0; j<tensor.getJ(); ++j) {
         for(int k=0; k<tensor.getK(); ++k) {
           // See if there is another technique to fill T
-          tensor.setT(i,j,k, t(countT));
-          countT++;
+          tensor.setT(i,j,k, t(9*k + 3*i + j));
         }
       }
     } 
-   
-/*
-
-  // Calculation of the matrix B in Bx = 0 for p= 8 !!  and x
-    if(list2.rows() == 8 && list3.rows() == 8) {
-      std::cout << "Image 1" <<std::endl;
-      for(int i = 0; i<2; ++i) {
-        for(int j = 0; j<2; ++j) {
-          for(int k = 0; k<2; ++k) {
-            B(2*i + j, k) += list2(7,i)*list3(7,2)*tensor(2,j,k) - list2(7,2)*list3(7,2)*tensor(i,j,k) - list2(7,i)*list3(7,j)*tensor(2,2,k) + list2(7,2)*list3(7,j)*tensor(i,2,k);
-          }
-        }
-      }  
-      kn::saveMatrix(B, "input/b.list"); 
-    
-
-    // Apply the SVD
-    Eigen::JacobiSVD<MatrixXd> jacobiB;
-    jacobiB.compute(B, ComputeThinU | ComputeThinV);
-    jacobiB.solve();
-    for(int i=0; i < x.rows(); ++i) {
-      std::cout << x(i) << std::endl;
-    }
-    MatrixXd Ub = jacobiB.matrixU();
-    kn::saveMatrix(Ub, "input/Ub.list");
-    MatrixXd Vb = jacobiB.matrixV();
-    kn::saveMatrix(Vb, "input/Vb.list");
-
-
-    //Calculate x
-    std::cout << "Coordonnées de x" << std::endl;
-    for(int i=0; i< Vb.rows(); ++i) {
-      std::cout << Vb(i, Vb.cols() -1) << std::endl;
-      x(0) = Vb(0, Vb.cols() -1);
-      x(1) = Vb(1, Vb.cols() -1);
-
-      //std::cout << x(i) << std::endl;
-    }
-    std::cout << "end x" << std::endl;
-
-    // Write the point in the list3
-    list1File.open("input/list1.list", std::ios::app);
-    list1File << x(0) << " ";
-    list1File << x(1) << " ";
-    list1File << 1.0 << std::endl;
-        
-    list1File.close();
-    kn::loadMatrix(list1,"input/list1.list");
-  }
-
-*/   
-
 
     // Draw points on image1
     for(int i=0; i<list1.rows(); ++i)
@@ -225,51 +171,6 @@ int main(int argc, char *argv[])
       if(e.type == SDL_MOUSEBUTTONDOWN) {
         // Left clic
         if(e.button.button == SDL_BUTTON_LEFT) {
-
-    // Calculation of the matrix B in Bx = b for p= 8 !!  and x''
-    
-    if(list1.rows() == 8 && list2.rows() == 8) {
-      std::cout << "Calculation of B" << std::endl;
-      std::cout << "Image 3" <<std::endl;
-      for(int i = 0; i<2; ++i) {
-        for(int j = 0; j<2; ++j) {
-          for(int k = 0; k<3; ++k) {
-            B(2*i + j, j) +=  list1(7,k)*(tensor(i,2,k) - list2(7,i)*tensor(2,2,k));
-          }
-        }
-      }   
-
-      kn::saveMatrix(B, "input/B.list"); 
-
-    // Calculation of the vector b in Bx=b
-      std::cout << "Calculation of b" << std::endl;
-      for(int i = 0; i<2; ++i) {
-        for(int j = 0; j<2; ++j) {
-          for(int k = 0; k<3; ++k) {
-            b(2*i + j) += list1(7,k)*(list2(7,i)*tensor(2,j,k) - list2(7,2)*tensor(i,j,k));
-          }
-        }
-      } 
-
-      kn::saveMatrix(b, "input/b.list");
-
-   // Apply the SVD
-      std::cout << "SVD on B" << std::endl;
-    Eigen::JacobiSVD<MatrixXd> jacobiB;
-    jacobiB.compute(B, ComputeThinU | ComputeThinV);
-    x = jacobiB.solve(b);
-
-    // Write the point in the list3
-    std::cout << "Write in list3" << std::endl;
-    list3File.open("input/list3.list", std::ios::app);
-    list3File << x(0) << " ";
-    list3File << x(1) << " ";
-    list3File << 1.0 << std::endl;
-        
-    list3File.close();
-    kn::loadMatrix(list3,"input/list3.list");
-  }
-
           if(e.button.x <= image1->w) {
             list1File.open("input/list1.list", std::ios::app);
             list1File << (float)e.button.x << " ";
@@ -309,6 +210,76 @@ int main(int argc, char *argv[])
 
             kn::loadMatrix(list3,"input/list3.list");
           }
+
+          // Calculation of the matrix B in Bx = 0 for p= 8 !!  and x
+          if(list2.rows() == 8 && list3.rows() == 8) {
+            std::cout << "Image 1" <<std::endl;
+            for(int i = 0; i<2; ++i) {
+              for(int j = 0; j<2; ++j) {
+                for(int k = 0; k<3; ++k) {
+                  B(2*i + j, 0) = list2(7,i)*tensor(2,j,0) - tensor(i,j,0) - list2(7,i)*list3(7,j)*tensor(2,2,0) + list3(7,j)*tensor(i,2,0);
+                  B(2*i + j, 1) = list2(7,i)*tensor(2,j,1) - tensor(i,j,1) - list2(7,i)*list3(7,j)*tensor(2,2,1) + list3(7,j)*tensor(i,2,1);
+                  b(2*i + j) = - (list2(7,i)*tensor(2,j,2) - tensor(i,j,2) - list2(7,i)*list3(7,j)*tensor(2,2,2) + list3(7,j)*tensor(i,2,2));
+                }
+              }
+            }  
+            kn::saveMatrix(B, "input/b.list"); 
+            std::cout << "pop" << std::endl;
+          
+
+          // Apply the SVD
+          Eigen::JacobiSVD<MatrixXd> jacobiB;
+          jacobiB.compute(B, ComputeThinU | ComputeThinV);
+          x = jacobiB.solve(b);
+
+          // Write the point in the list3
+          list1File.open("input/list1.list", std::ios::app);
+          list1File << x(0) << " ";
+          list1File << x(1) << " ";
+          list1File << 1.0 << std::endl;
+              
+          list1File.close();
+          kn::loadMatrix(list1,"input/list1.list");
+          }
+
+ 
+
+          // Calculation of the matrix B in Bx = b for p= 8 !!  and x''
+         /* if(list1.rows() == 8 && list2.rows() == 8) {
+            std::cout << "Calculation of B and b" << std::endl;
+            std::cout << "Image 3" <<std::endl;
+            for(int i = 0; i<2; ++i) {
+              for(int j = 0; j<2; ++j) {
+                for(int k = 0; k<3; ++k) {
+                  B(2*i + j, j) +=  list1(7,k)*   (tensor(i,2,k) - list2(7,i)*tensor(2,2,k));
+                  // matTransfer(2*i+l,l) += p1(k)*   (-p2(l)*tensor(8+k*9) + tensor(k*9+(i+1)*2+i));
+
+                // transfer(2*i+l) += p1(k)*   (-p2(i)*tensor(k*9+6+l)+tensor(k*9+i*3+l));
+                  b(2*i + j) += list1(7,k)*   (-list2(7,i)*tensor(2,j,k) + list2(7,2)*tensor(i,j,k));
+
+                }
+              }
+            }   
+
+            kn::saveMatrix(B, "input/B.list");
+            kn::saveMatrix(b, "input/b.list"); 
+
+         // Apply the SVD
+            std::cout << "SVD on B" << std::endl;
+          Eigen::JacobiSVD<MatrixXd> jacobiB;
+          jacobiB.compute(B, ComputeThinU | ComputeThinV);
+          x = jacobiB.solve(b);
+
+          // Write the point in the list3
+          std::cout << "Write in list3" << std::endl;
+          list3File.open("input/list3.list", std::ios::app);
+          list3File << x(0) << " ";
+          list3File << x(1) << " ";
+          list3File << 1.0 << std::endl;
+              
+          list3File.close();
+          kn::loadMatrix(list3,"input/list3.list");
+        }*/
         }
       }
       // Closing of the window
