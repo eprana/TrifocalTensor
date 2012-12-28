@@ -13,19 +13,6 @@
 static const size_t BYTES_PER_PIXEL = 32;
 
 
-SDL_Surface* loadPicture(SDL_Surface* pscreen, size_t width, size_t height, int r, int g, int b, int x, int y) {
-    SDL_Surface* surface = NULL;
-    surface = SDL_CreateRGBSurface(SDL_HWSURFACE, width, height, BYTES_PER_PIXEL, 0, 0, 0, 0);
-    SDL_FillRect(surface, NULL, SDL_MapRGB(pscreen->format, r, g, b));
-    SDL_Rect position;
-    position.x = x;
-    position.y = y;
-    SDL_BlitSurface(surface, NULL, pscreen, &position);
-
-    return surface;
-}
-
-
 int main(int argc, char *argv[])
 {
   // Init SDL image
@@ -35,8 +22,18 @@ int main(int argc, char *argv[])
   }
 
   // Creation of variables
-  VectorXd t(27);
-  VectorXd x(3);
+  VectorXd x(2);
+  for(int i = 0; i < x.rows(); ++i){
+      x(i) = 0;
+  }
+  VectorXd b(4);
+  for(int i = 0; i < b.rows(); ++i){
+      b(i) = 0;
+  }
+  Eigen::VectorXd t(27);
+  for(int i = 0; i < t.rows(); ++i){
+      t(i) = 0;
+  }
   Tensor tensor(3, 3, 3);
   MatrixXd A(28, 27);
   for(int i = 0; i < A.rows(); ++i){
@@ -44,7 +41,7 @@ int main(int argc, char *argv[])
       A(i,j) = 0;
     }
   }
-  MatrixXd B(4,3);
+  MatrixXd B(4,2);
   for(int i = 0; i < B.rows(); ++i){
     for(int j= 0; j < B.cols(); ++j) {
       B(i,j) = 0;
@@ -90,10 +87,7 @@ int main(int argc, char *argv[])
   std::ofstream list2File;
   kn::loadMatrix(list3,"input/list3.list");
   std::ofstream list3File;
-  Eigen::VectorXd b(27);
-  for(int i = 0; i < t.rows(); ++i){
-      t(i) = 0;
-  }
+  
 
 
   // Save a list
@@ -149,55 +143,57 @@ int main(int argc, char *argv[])
         }
       }
     } 
+   
+/*
 
-    // Calculation of the matrix B in Bx = 0 for p= 7 !!  and x''
-    if(list1.rows() >7 && list2.rows() > 7) {
+  // Calculation of the matrix B in Bx = 0 for p= 8 !!  and x
+    if(list2.rows() == 8 && list3.rows() == 8) {
+      std::cout << "Image 1" <<std::endl;
       for(int i = 0; i<2; ++i) {
         for(int j = 0; j<2; ++j) {
-          for(int k = 0; k<3; ++k) {
-            B(i+j, i) += list1(7,k)*(list2(7,2)*tensor(i,2,k) - list2(7,i)*tensor(2,2,k));
-            B(i+j, 2) += list1(7,k)*(list2(7,i)*tensor(2,j,k) - list2(7,2)*tensor(i,j,k));
+          for(int k = 0; k<2; ++k) {
+            B(2*i + j, k) += list2(7,i)*list3(7,2)*tensor(2,j,k) - list2(7,2)*list3(7,2)*tensor(i,j,k) - list2(7,i)*list3(7,j)*tensor(2,2,k) + list2(7,2)*list3(7,j)*tensor(i,2,k);
           }
         }
-      }
-    }
-
-    // Calculation of the matrix B in Bx = 0 for p= 7 !!  and x''
-    if(list1.rows() == 8 && list2.rows() == 8) {
-      for(int i = 0; i<2; ++i) {
-        for(int j = 0; j<2; ++j) {
-          for(int k = 0; k<3; ++k) {
-            B(i+j, i) += list1(7,k)*(list2(7,2)*tensor(i,2,k) - list2(7,i)*tensor(2,2,k));
-            B(i+j, 2) += list1(7,k)*(list2(7,i)*tensor(2,j,k) - list2(7,2)*tensor(i,j,k));
-          }
-        }
-      }
-      std::cout << "X calculé " << std::endl;
+      }  
+      kn::saveMatrix(B, "input/b.list"); 
     
 
     // Apply the SVD
     Eigen::JacobiSVD<MatrixXd> jacobiB;
     jacobiB.compute(B, ComputeThinU | ComputeThinV);
-    MatrixXd Ub = jacobiB.matrixU();
-    MatrixXd Vb = jacobiB.matrixV();
-
-    //Calculate x
-    for(int i=0; i< Vb.rows(); ++i) {
-      x(i) = V(i, Vb.cols() -1);
+    jacobiB.solve();
+    for(int i=0; i < x.rows(); ++i) {
       std::cout << x(i) << std::endl;
     }
+    MatrixXd Ub = jacobiB.matrixU();
+    kn::saveMatrix(Ub, "input/Ub.list");
+    MatrixXd Vb = jacobiB.matrixV();
+    kn::saveMatrix(Vb, "input/Vb.list");
+
+
+    //Calculate x
+    std::cout << "Coordonnées de x" << std::endl;
+    for(int i=0; i< Vb.rows(); ++i) {
+      std::cout << Vb(i, Vb.cols() -1) << std::endl;
+      x(0) = Vb(0, Vb.cols() -1);
+      x(1) = Vb(1, Vb.cols() -1);
+
+      //std::cout << x(i) << std::endl;
+    }
+    std::cout << "end x" << std::endl;
 
     // Write the point in the list3
-    list3File.open("input/list3.list", std::ios::app);
-    list3File << x(0) << " ";
-    list3File << x(1) << " ";
-    list3File << (float)1.0 << std::endl;
+    list1File.open("input/list1.list", std::ios::app);
+    list1File << x(0) << " ";
+    list1File << x(1) << " ";
+    list1File << 1.0 << std::endl;
         
-    list3File.close();
-    kn::loadMatrix(list3,"input/list3.list");
+    list1File.close();
+    kn::loadMatrix(list1,"input/list1.list");
   }
 
-    
+*/   
 
 
     // Draw points on image1
@@ -229,6 +225,51 @@ int main(int argc, char *argv[])
       if(e.type == SDL_MOUSEBUTTONDOWN) {
         // Left clic
         if(e.button.button == SDL_BUTTON_LEFT) {
+
+    // Calculation of the matrix B in Bx = b for p= 8 !!  and x''
+    
+    if(list1.rows() == 8 && list2.rows() == 8) {
+      std::cout << "Calculation of B" << std::endl;
+      std::cout << "Image 3" <<std::endl;
+      for(int i = 0; i<2; ++i) {
+        for(int j = 0; j<2; ++j) {
+          for(int k = 0; k<3; ++k) {
+            B(2*i + j, j) +=  list1(7,k)*(tensor(i,2,k) - list2(7,i)*tensor(2,2,k));
+          }
+        }
+      }   
+
+      kn::saveMatrix(B, "input/B.list"); 
+
+    // Calculation of the vector b in Bx=b
+      std::cout << "Calculation of b" << std::endl;
+      for(int i = 0; i<2; ++i) {
+        for(int j = 0; j<2; ++j) {
+          for(int k = 0; k<3; ++k) {
+            b(2*i + j) += list1(7,k)*(list2(7,i)*tensor(2,j,k) - list2(7,2)*tensor(i,j,k));
+          }
+        }
+      } 
+
+      kn::saveMatrix(b, "input/b.list");
+
+   // Apply the SVD
+      std::cout << "SVD on B" << std::endl;
+    Eigen::JacobiSVD<MatrixXd> jacobiB;
+    jacobiB.compute(B, ComputeThinU | ComputeThinV);
+    x = jacobiB.solve(b);
+
+    // Write the point in the list3
+    std::cout << "Write in list3" << std::endl;
+    list3File.open("input/list3.list", std::ios::app);
+    list3File << x(0) << " ";
+    list3File << x(1) << " ";
+    list3File << 1.0 << std::endl;
+        
+    list3File.close();
+    kn::loadMatrix(list3,"input/list3.list");
+  }
+
           if(e.button.x <= image1->w) {
             list1File.open("input/list1.list", std::ios::app);
             list1File << (float)e.button.x << " ";
@@ -260,7 +301,7 @@ int main(int argc, char *argv[])
           }
           if(image1->w + image2->w < e.button.x && e.button.x <= image3->w + image2->w + image1->w) {
             list3File.open("input/list3.list", std::ios::app);
-            list3File << (float)e.button.x - - image1->w - image2->w << " ";
+            list3File << (float)e.button.x - image1->w - image2->w << " ";
             list3File << (float)e.button.y << " ";
             list3File << (float)1.0 << std::endl;
             
