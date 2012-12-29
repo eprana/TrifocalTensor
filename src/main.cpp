@@ -211,8 +211,8 @@ int main(int argc, char *argv[])
             kn::loadMatrix(list3,"input/list3.list");
           }
 
-          // Calculation of the matrix B in Bx = 0 for p= 8 !!  and x
-          if(list2.rows() > 7 && list3.rows() >7 && list2.rows()==list3.rows()) {
+          // Calculation of the matrix B in Bx = 0 for the transfert on the first image
+          if( (list2.rows() > 7 && list3.rows() >7) && (list2.rows()==list3.rows() && list1.rows() == list2.rows()-1 )) {
             std::cout << "Image 1" <<std::endl;
             for(int i = 0; i<2; ++i) {
               for(int j = 0; j<2; ++j) {
@@ -240,30 +240,74 @@ int main(int argc, char *argv[])
           kn::loadMatrix(list1,"input/list1.list");
           }
 
- 
 
-          // Calculation of the matrix B in Bx = b for p= 8 !!  and x''
-         /* if(list1.rows() == 8 && list2.rows() == 8) {
-            std::cout << "Calculation of B and b" << std::endl;
-            std::cout << "Image 3" <<std::endl;
+          // Calculation of the matrix B in Bx = 0 for the transfert on the second image
+          if( (list1.rows() > 7 && list3.rows() >7) && (list1.rows()==list3.rows() && list2.rows() == list1.rows()-1 )) {
+            std::cout << "Image 2" <<std::endl;
+
+            for(int i = 0; i < B.rows(); ++i){
+              for(int j= 0; j < B.cols(); ++j) {
+               B(i,j) = 0;
+               b(i) = 0;
+              }
+             }
             for(int i = 0; i<2; ++i) {
               for(int j = 0; j<2; ++j) {
                 for(int k = 0; k<3; ++k) {
-                  B(2*i + j, j) +=  list1(7,k)*   (tensor(i,2,k) - list2(7,i)*tensor(2,2,k));
-                  // matTransfer(2*i+l,l) += p1(k)*   (-p2(l)*tensor(8+k*9) + tensor(k*9+(i+1)*2+i));
+                  B(2*i + j, i) +=  list1(list1.rows()-1,k)*  (tensor(2,j,k) - list3(list1.rows()-1,j)*tensor(2,2,k));
+                  b(2*i + j) += list1(list1.rows()-1,k)*(-list3(list1.rows()-1,j)*tensor(i,2,k) + tensor(i,j,k));
 
-                // transfer(2*i+l) += p1(k)*   (-p2(i)*tensor(k*9+6+l)+tensor(k*9+i*3+l));
-                  b(2*i + j) += list1(7,k)*   (-list2(7,i)*tensor(2,j,k) + list2(7,2)*tensor(i,j,k));
+                }
+              }
+            }  
+            std::cout << "ok B et b" << std::endl;
+            kn::saveMatrix(B, "input/b.list");           
+
+          // Apply the SVD
+          Eigen::JacobiSVD<MatrixXd> jacobiB;
+          jacobiB.compute(B, ComputeThinU | ComputeThinV);
+          x = jacobiB.solve(b);
+          std::cout << "ok SVD" << std::endl;
+
+          // Write the point in the list2
+          list2File.open("input/list2.list", std::ios::app);
+          std::cout << "ok open" << std::endl;
+          list2File << x(0) << " ";
+          list2File << x(1) << " ";
+          list2File << 1.0 << std::endl;
+              
+          list2File.close();
+          kn::loadMatrix(list2,"input/list2.list");
+          }
+
+ 
+
+          // Calculation of the matrix B in Bx = b for the transfert on the third image
+          if( (list1.rows() > 7 && list2.rows() > 7 ) && (list1.rows() == list2.rows() && list3.rows() == list2.rows()-1 )) {
+            std::cout << "Calculation of B and b" << std::endl;
+            std::cout << "Image 3" <<std::endl;
+
+            for(int i = 0; i < B.rows(); ++i){
+              for(int j= 0; j < B.cols(); ++j) {
+               B(i,j) = 0;
+               b(i) = 0;
+              }
+             }
+             
+            for(int i = 0; i<2; ++i) {
+              for(int j = 0; j<2; ++j) {
+                for(int k = 0; k<3; ++k) {
+                  B(2*i + j, j) +=  list1(list1.rows()-1,k)*(tensor(i,2,k) - list2(list1.rows()-1,i)*tensor(2,2,k));
+                  b(2*i + j) += list1(list1.rows()-1,k)*(-list2(list1.rows()-1,i)*tensor(2,j,k) + tensor(i,j,k));
 
                 }
               }
             }   
-
             kn::saveMatrix(B, "input/B.list");
             kn::saveMatrix(b, "input/b.list"); 
 
          // Apply the SVD
-            std::cout << "SVD on B" << std::endl;
+          std::cout << "SVD on B" << std::endl;
           Eigen::JacobiSVD<MatrixXd> jacobiB;
           jacobiB.compute(B, ComputeThinU | ComputeThinV);
           x = jacobiB.solve(b);
@@ -277,7 +321,7 @@ int main(int argc, char *argv[])
               
           list3File.close();
           kn::loadMatrix(list3,"input/list3.list");
-        }*/
+        }
         }
       }
       // Closing of the window
