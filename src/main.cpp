@@ -22,31 +22,12 @@ int main(int argc, char *argv[])
   }
 
   // Creation of variables
-  VectorXd x(2);
-  for(int i = 0; i < x.rows(); ++i){
-      x(i) = 0;
-  }
-  VectorXd b(4);
-  for(int i = 0; i < b.rows(); ++i){
-      b(i) = 0;
-  }
-  Eigen::VectorXd t(27);
-  for(int i = 0; i < t.rows(); ++i){
-      t(i) = 0;
-  }
+  VectorXd x = VectorXd::Zero(2);
+  VectorXd b = VectorXd::Zero(4);
+  VectorXd t = VectorXd::Zero(27);
   Tensor tensor(3, 3, 3);
-  MatrixXd A(28, 27);
-  for(int i = 0; i < A.rows(); ++i){
-    for(int j= 0; j < A.cols(); ++j) {
-      A(i,j) = 0;
-    }
-  }
-  MatrixXd B(4,2);
-  for(int i = 0; i < B.rows(); ++i){
-    for(int j= 0; j < B.cols(); ++j) {
-      B(i,j) = 0;
-    }
-  }
+  MatrixXd A = MatrixXd::Zero(28,27);
+  MatrixXd B = MatrixXd::Zero(4,2);
 
   // Load some images
   SDL_Surface *image1 = IMG_Load("input/image1.jpg");
@@ -245,12 +226,9 @@ int main(int argc, char *argv[])
           if( (list1.rows() > 7 && list3.rows() >7) && (list1.rows()==list3.rows() && list2.rows() == list1.rows()-1 )) {
             std::cout << "Image 2" <<std::endl;
 
-            for(int i = 0; i < B.rows(); ++i){
-              for(int j= 0; j < B.cols(); ++j) {
-               B(i,j) = 0;
-               b(i) = 0;
-              }
-             }
+            B = MatrixXd::Zero(4,2);
+            b = VectorXd::Zero(4);
+
             for(int i = 0; i<2; ++i) {
               for(int j = 0; j<2; ++j) {
                 for(int k = 0; k<3; ++k) {
@@ -287,12 +265,8 @@ int main(int argc, char *argv[])
             std::cout << "Calculation of B and b" << std::endl;
             std::cout << "Image 3" <<std::endl;
 
-            for(int i = 0; i < B.rows(); ++i){
-              for(int j= 0; j < B.cols(); ++j) {
-               B(i,j) = 0;
-               b(i) = 0;
-              }
-             }
+            B = MatrixXd::Zero(4,2);
+            b = VectorXd::Zero(4);
              
             for(int i = 0; i<2; ++i) {
               for(int j = 0; j<2; ++j) {
