@@ -116,16 +116,13 @@ int main(int argc, char *argv[])
 
     // Calculate t
     for(int i=0; i< V.rows(); ++i) {
-      t(i) = V(i, V.cols() -1);
-      //std::cout << t(i) << std::endl;
-      
+      t(i) = V(i, V.cols() -1);     
     }
 
     // Put t in T
     for(int i = 0; i< tensor.getI(); ++i) {
       for(int j = 0; j<tensor.getJ(); ++j) {
         for(int k=0; k<tensor.getK(); ++k) {
-          // See if there is another technique to fill T
           tensor.setT(i,j,k, t(9*k + 3*i + j));
         }
       }
@@ -164,54 +161,26 @@ int main(int argc, char *argv[])
             MatrixXd tmp = list1;
             list1.resize(list1.rows() + 1, list1.cols());
             list1 << tmp, (float)e.button.x, (float)e.button.y, 1.0;
-            /*list1File.open("input/list1.list", std::ios::app);
-            list1File << (float)e.button.x << " ";
-            list1File << (float)e.button.y << " ";
-            list1File << (float)1.0 << std::endl;
-            
-            list1File.close();
-
-            kn::loadMatrix(list1,"input/list1.list");*/
+            kn::saveMatrix(list1,"/tmp/myList1.mat");
           }
 
           if(image1->w < e.button.x && e.button.x <= image2->w + image1->w) {
             MatrixXd tmp = list2;
             list2.resize(list2.rows() + 1, list2.cols());
             list2 << tmp, (float)e.button.x  - image1->w, (float)e.button.y, 1.0;
-            /*list2File.open("input/list2.list", std::ios::app);
-            list2File << (float)e.button.x - image1->w<< " ";
-            list2File << (float)e.button.y << " ";
-            list2File << (float)1.0 << std::endl;
-            
-            list2File.close();
-
-            kn::loadMatrix(list2,"input/list2.list");*/
-            /*std::cout << "Second image" << std::endl;
-            list2(count2,0) = e.button.x - image1->w;
-            list2(count2,1) = e.button.y;
-            kn::saveMatrix(list1,"/tmp/myList2.mat");
-            count2++;
-            if(count2++ == 7) {
-              count2 = 0;  
-            } */
+            kn::saveMatrix(list2,"/tmp/myList2.mat");
           }
+
           if(image1->w + image2->w < e.button.x && e.button.x <= image3->w + image2->w + image1->w) {
             MatrixXd tmp = list3;
             list3.resize(list3.rows() + 1, list3.cols());
             list3 << tmp, (float)e.button.x - image1->w - image2->w, (float)e.button.y, 1.0;
-            /*list3File.open("input/list3.list", std::ios::app);
-            list3File << (float)e.button.x - image1->w - image2->w << " ";
-            list3File << (float)e.button.y << " ";
-            list3File << (float)1.0 << std::endl;
-            
-            list3File.close();
-
-            kn::loadMatrix(list3,"input/list3.list");*/
+            kn::saveMatrix(list3,"/tmp/myList3.mat");
           }
 
           // Calculation of the matrix B in Bx = 0 for the transfert on the first image
           if( (list2.rows() > 7 && list3.rows() >7) && (list2.rows()==list3.rows() && list1.rows() == list2.rows()-1 )) {
-            std::cout << "Image 1" <<std::endl;
+            std::cout << "Transfert on the first picture" <<std::endl;
             for(int i = 0; i<2; ++i) {
               for(int j = 0; j<2; ++j) {
                 for(int k = 0; k<3; ++k) {
@@ -220,8 +189,7 @@ int main(int argc, char *argv[])
                   b(2*i + j) = - (list2(list2.rows()-1,i)*tensor(2,j,2) - tensor(i,j,2) - list2(list2.rows()-1,i)*list3(list2.rows()-1,j)*tensor(2,2,2) + list3(list2.rows()-1,j)*tensor(i,2,2));
                 }
               }
-            }  
-            kn::saveMatrix(B, "input/b.list");           
+            }           
 
           // Apply the SVD
           Eigen::JacobiSVD<MatrixXd> jacobiB;
@@ -232,19 +200,13 @@ int main(int argc, char *argv[])
           MatrixXd tmp = list1;
           list1.resize(list1.rows() + 1, list1.cols());
           list1 << tmp, x(0), x(1), 1.0;
-          /*list1File.open("input/list1.list", std::ios::app);
-          list1File << x(0) << " ";
-          list1File << x(1) << " ";
-          list1File << 1.0 << std::endl;
-              
-          list1File.close();
-          kn::loadMatrix(list1,"input/list1.list");*/
+          kn::saveMatrix(list1,"/tmp/myList1.mat");
           }
 
 
           // Calculation of the matrix B in Bx = 0 for the transfert on the second image
           if( (list1.rows() > 7 && list3.rows() >7) && (list1.rows()==list3.rows() && list2.rows() == list1.rows()-1 )) {
-            std::cout << "Image 2" <<std::endl;
+            std::cout << "Transfert on the second picture" <<std::endl;
 
             B = MatrixXd::Zero(4,2);
             b = VectorXd::Zero(4);
@@ -257,29 +219,19 @@ int main(int argc, char *argv[])
 
                 }
               }
-            }  
-            std::cout << "ok B et b" << std::endl;
-            kn::saveMatrix(B, "input/b.list");           
+            }         
 
           // Apply the SVD
           Eigen::JacobiSVD<MatrixXd> jacobiB;
           jacobiB.compute(B, ComputeThinU | ComputeThinV);
           x = jacobiB.solve(b);
-          std::cout << "ok SVD" << std::endl;
 
           // Write the point in the list2
           MatrixXd tmp = list2;
           list2.resize(list2.rows() + 1, list2.cols());
           list2 << tmp, x(0), x(1), 1.0;
-          
-          /*list2File.open("input/list2.list", std::ios::app);
-          std::cout << "ok open" << std::endl;
-          list2File << x(0) << " ";
-          list2File << x(1) << " ";
-          list2File << 1.0 << std::endl;
-              
-          list2File.close();
-          kn::loadMatrix(list2,"input/list2.list");*/
+          kn::saveMatrix(list2,"/tmp/myList2.mat");
+
           }
 
  
@@ -287,7 +239,7 @@ int main(int argc, char *argv[])
           // Calculation of the matrix B in Bx = b for the transfert on the third image
           if( (list1.rows() > 7 && list2.rows() > 7 ) && (list1.rows() == list2.rows() && list3.rows() == list2.rows()-1 )) {
             std::cout << "Calculation of B and b" << std::endl;
-            std::cout << "Image 3" <<std::endl;
+            std::cout << "Transfert on the third picture" <<std::endl;
 
             B = MatrixXd::Zero(4,2);
             b = VectorXd::Zero(4);
@@ -301,11 +253,8 @@ int main(int argc, char *argv[])
                 }
               }
             }   
-            kn::saveMatrix(B, "input/B.list");
-            kn::saveMatrix(b, "input/b.list"); 
 
          // Apply the SVD
-          std::cout << "SVD on B" << std::endl;
           Eigen::JacobiSVD<MatrixXd> jacobiB;
           jacobiB.compute(B, ComputeThinU | ComputeThinV);
           x = jacobiB.solve(b);
@@ -314,14 +263,8 @@ int main(int argc, char *argv[])
           MatrixXd tmp = list3;
           list3.resize(list3.rows() + 1, list3.cols());
           list3 << tmp, x(0), x(1), 1.0;
-          /*std::cout << "Write in list3" << std::endl;
-          list3File.open("input/list3.list", std::ios::app);
-          list3File << x(0) << " ";
-          list3File << x(1) << " ";
-          list3File << 1.0 << std::endl;
-              
-          list3File.close();
-          kn::loadMatrix(list3,"input/list3.list");*/
+          kn::saveMatrix(list3,"/tmp/myList3.mat");
+
         }
         }
       }
