@@ -12,6 +12,12 @@
 
 static const size_t BYTES_PER_PIXEL = 32;
 
+void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std::string &filename) {
+  MatrixXd tmp = list;
+  list.resize(list.rows() + 1, list.cols());
+  list << tmp, newX, newY, newZ;
+  kn::saveMatrix(list, filename);
+}
 
 int main(int argc, char *argv[])
 {
@@ -22,20 +28,12 @@ int main(int argc, char *argv[])
   }
 
   // Creation of variables
+  Tensor tensor(3, 3, 3);
   VectorXd x = VectorXd::Zero(2);
   VectorXd b = VectorXd::Zero(4);
   VectorXd t = VectorXd::Zero(27);
-  Tensor tensor(3, 3, 3);
   MatrixXd A = MatrixXd::Zero(28,27);
   MatrixXd B = MatrixXd::Zero(4,2);
-  MatrixXd C = MatrixXd::Zero(4,2);
-  MatrixXd D = MatrixXd::Zero(5,2);
-  MatrixXd E = MatrixXd::Zero(1,2);
-  VectorXd c = VectorXd::Zero(2);
-  D << C, 1.0, 2.0;
-  kn::saveMatrix(C,"input/D.list");
-
-
 
   // Load some images
   SDL_Surface *image1 = IMG_Load("input/image1.jpg");
@@ -158,24 +156,15 @@ int main(int argc, char *argv[])
         // Left clic
         if(e.button.button == SDL_BUTTON_LEFT) {
           if(e.button.x <= image1->w) {
-            MatrixXd tmp = list1;
-            list1.resize(list1.rows() + 1, list1.cols());
-            list1 << tmp, (float)e.button.x, (float)e.button.y, 1.0;
-            kn::saveMatrix(list1,"/tmp/myList1.mat");
+            updateMatrix( list1, (float)e.button.x, (float)e.button.y, 1.0, "/tmp/myList1.mat");
           }
 
           if(image1->w < e.button.x && e.button.x <= image2->w + image1->w) {
-            MatrixXd tmp = list2;
-            list2.resize(list2.rows() + 1, list2.cols());
-            list2 << tmp, (float)e.button.x  - image1->w, (float)e.button.y, 1.0;
-            kn::saveMatrix(list2,"/tmp/myList2.mat");
+            updateMatrix( list2, (float)e.button.x - image1->w, (float)e.button.y, 1.0, "/tmp/myList2.mat");
           }
 
           if(image1->w + image2->w < e.button.x && e.button.x <= image3->w + image2->w + image1->w) {
-            MatrixXd tmp = list3;
-            list3.resize(list3.rows() + 1, list3.cols());
-            list3 << tmp, (float)e.button.x - image1->w - image2->w, (float)e.button.y, 1.0;
-            kn::saveMatrix(list3,"/tmp/myList3.mat");
+            updateMatrix( list3, (float)e.button.x - image1->w - image2->w, (float)e.button.y, 1.0, "/tmp/myList3.mat");
           }
 
           // Calculation of the matrix B in Bx = 0 for the transfert on the first image
@@ -196,11 +185,8 @@ int main(int argc, char *argv[])
           jacobiB.compute(B, ComputeThinU | ComputeThinV);
           x = jacobiB.solve(b);
 
-          // Write the point in the list1
-          MatrixXd tmp = list1;
-          list1.resize(list1.rows() + 1, list1.cols());
-          list1 << tmp, x(0), x(1), 1.0;
-          kn::saveMatrix(list1,"/tmp/myList1.mat");
+          // Add the point to list1
+          updateMatrix( list1, x(0), x(1), 1.0, "/tmp/myList1.mat");
           }
 
 
@@ -226,11 +212,8 @@ int main(int argc, char *argv[])
           jacobiB.compute(B, ComputeThinU | ComputeThinV);
           x = jacobiB.solve(b);
 
-          // Write the point in the list2
-          MatrixXd tmp = list2;
-          list2.resize(list2.rows() + 1, list2.cols());
-          list2 << tmp, x(0), x(1), 1.0;
-          kn::saveMatrix(list2,"/tmp/myList2.mat");
+          // Add the point to list2
+          updateMatrix( list2, x(0), x(1), 1.0, "/tmp/myList2.mat");
 
           }
 
@@ -259,12 +242,8 @@ int main(int argc, char *argv[])
           jacobiB.compute(B, ComputeThinU | ComputeThinV);
           x = jacobiB.solve(b);
 
-          // Write the point in the list3
-          MatrixXd tmp = list3;
-          list3.resize(list3.rows() + 1, list3.cols());
-          list3 << tmp, x(0), x(1), 1.0;
-          kn::saveMatrix(list3,"/tmp/myList3.mat");
-
+          // Add the point to list3
+          updateMatrix( list3, x(0), x(1), 1.0, "/tmp/myList3.mat");
         }
         }
       }
