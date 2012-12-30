@@ -187,7 +187,7 @@ namespace kn {
   template <class EigenMatrix>
   void saveMatrix(const EigenMatrix &M,
                   const std::string &fileName,
-                  const bool headerMode =  false,
+                  const bool headerMode =  true,
                   const std::string &comments = "") {
 
     // open the file

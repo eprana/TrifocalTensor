@@ -28,6 +28,14 @@ int main(int argc, char *argv[])
   Tensor tensor(3, 3, 3);
   MatrixXd A = MatrixXd::Zero(28,27);
   MatrixXd B = MatrixXd::Zero(4,2);
+  MatrixXd C = MatrixXd::Zero(4,2);
+  MatrixXd D = MatrixXd::Zero(5,2);
+  MatrixXd E = MatrixXd::Zero(1,2);
+  VectorXd c = VectorXd::Zero(2);
+  D << C, 1.0, 2.0;
+  kn::saveMatrix(C,"input/D.list");
+
+
 
   // Load some images
   SDL_Surface *image1 = IMG_Load("input/image1.jpg");
@@ -153,25 +161,31 @@ int main(int argc, char *argv[])
         // Left clic
         if(e.button.button == SDL_BUTTON_LEFT) {
           if(e.button.x <= image1->w) {
-            list1File.open("input/list1.list", std::ios::app);
+            MatrixXd tmp = list1;
+            list1.resize(list1.rows() + 1, list1.cols());
+            list1 << tmp, (float)e.button.x, (float)e.button.y, 1.0;
+            /*list1File.open("input/list1.list", std::ios::app);
             list1File << (float)e.button.x << " ";
             list1File << (float)e.button.y << " ";
             list1File << (float)1.0 << std::endl;
             
             list1File.close();
 
-            kn::loadMatrix(list1,"input/list1.list");
+            kn::loadMatrix(list1,"input/list1.list");*/
           }
 
           if(image1->w < e.button.x && e.button.x <= image2->w + image1->w) {
-            list2File.open("input/list2.list", std::ios::app);
+            MatrixXd tmp = list2;
+            list2.resize(list2.rows() + 1, list2.cols());
+            list2 << tmp, (float)e.button.x  - image1->w, (float)e.button.y, 1.0;
+            /*list2File.open("input/list2.list", std::ios::app);
             list2File << (float)e.button.x - image1->w<< " ";
             list2File << (float)e.button.y << " ";
             list2File << (float)1.0 << std::endl;
             
             list2File.close();
 
-            kn::loadMatrix(list2,"input/list2.list");
+            kn::loadMatrix(list2,"input/list2.list");*/
             /*std::cout << "Second image" << std::endl;
             list2(count2,0) = e.button.x - image1->w;
             list2(count2,1) = e.button.y;
@@ -182,14 +196,17 @@ int main(int argc, char *argv[])
             } */
           }
           if(image1->w + image2->w < e.button.x && e.button.x <= image3->w + image2->w + image1->w) {
-            list3File.open("input/list3.list", std::ios::app);
+            MatrixXd tmp = list3;
+            list3.resize(list3.rows() + 1, list3.cols());
+            list3 << tmp, (float)e.button.x - image1->w - image2->w, (float)e.button.y, 1.0;
+            /*list3File.open("input/list3.list", std::ios::app);
             list3File << (float)e.button.x - image1->w - image2->w << " ";
             list3File << (float)e.button.y << " ";
             list3File << (float)1.0 << std::endl;
             
             list3File.close();
 
-            kn::loadMatrix(list3,"input/list3.list");
+            kn::loadMatrix(list3,"input/list3.list");*/
           }
 
           // Calculation of the matrix B in Bx = 0 for the transfert on the first image
@@ -211,14 +228,17 @@ int main(int argc, char *argv[])
           jacobiB.compute(B, ComputeThinU | ComputeThinV);
           x = jacobiB.solve(b);
 
-          // Write the point in the list3
-          list1File.open("input/list1.list", std::ios::app);
+          // Write the point in the list1
+          MatrixXd tmp = list1;
+          list1.resize(list1.rows() + 1, list1.cols());
+          list1 << tmp, x(0), x(1), 1.0;
+          /*list1File.open("input/list1.list", std::ios::app);
           list1File << x(0) << " ";
           list1File << x(1) << " ";
           list1File << 1.0 << std::endl;
               
           list1File.close();
-          kn::loadMatrix(list1,"input/list1.list");
+          kn::loadMatrix(list1,"input/list1.list");*/
           }
 
 
@@ -248,14 +268,18 @@ int main(int argc, char *argv[])
           std::cout << "ok SVD" << std::endl;
 
           // Write the point in the list2
-          list2File.open("input/list2.list", std::ios::app);
+          MatrixXd tmp = list2;
+          list2.resize(list2.rows() + 1, list2.cols());
+          list2 << tmp, x(0), x(1), 1.0;
+          
+          /*list2File.open("input/list2.list", std::ios::app);
           std::cout << "ok open" << std::endl;
           list2File << x(0) << " ";
           list2File << x(1) << " ";
           list2File << 1.0 << std::endl;
               
           list2File.close();
-          kn::loadMatrix(list2,"input/list2.list");
+          kn::loadMatrix(list2,"input/list2.list");*/
           }
 
  
@@ -287,14 +311,17 @@ int main(int argc, char *argv[])
           x = jacobiB.solve(b);
 
           // Write the point in the list3
-          std::cout << "Write in list3" << std::endl;
+          MatrixXd tmp = list3;
+          list3.resize(list3.rows() + 1, list3.cols());
+          list3 << tmp, x(0), x(1), 1.0;
+          /*std::cout << "Write in list3" << std::endl;
           list3File.open("input/list3.list", std::ios::app);
           list3File << x(0) << " ";
           list3File << x(1) << " ";
           list3File << 1.0 << std::endl;
               
           list3File.close();
-          kn::loadMatrix(list3,"input/list3.list");
+          kn::loadMatrix(list3,"input/list3.list");*/
         }
         }
       }
