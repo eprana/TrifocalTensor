@@ -1,0 +1,25 @@
+.TH TRIFOCAL-TENSOR "2007-12-02" "net-tools" "Linux Programmer's Manual"
+.SH NAME
+Trifocal tensor
+.SH SYNOPSIS
+.B "./bin/trifocal"
+.br
+.B "./bin/trifocal images"
+.br
+.B "./bin/trifocal images listes"
+.SH DESCRIPTION
+.B Trifocal tensor
+Explication de a quoi sert le logiciel ...
+.LP
+If no arguments are given,
+.B trifocal-tensor
+ca lance les 3 images de Nozick avec les 3 listes avec les 7 points
+.B interface
+argument is given, it displays the status of the given interface
+only; 
+.B [image1].jpg [image2].jpg [image3].jpg 
+ca affiche les 3 images avec des listes de points vides
+.B [image1].jpg [image2].jpg [image3].jpg [list1].list [list2].list [list3].list
+ca affiche les 3 images passées en argument et les 3 listes de points 
+(vide ou non, ca dépend des listes passée en paramètre)
+

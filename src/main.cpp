@@ -34,15 +34,30 @@ int main(int argc, char *argv[])
   VectorXd t = VectorXd::Zero(27);
   MatrixXd A = MatrixXd::Zero(28,27);
   MatrixXd B = MatrixXd::Zero(4,2);
+  SDL_Surface *image1;
+  SDL_Surface *image2;
+  SDL_Surface *image3;
 
   // Load some images
-  SDL_Surface *image1 = IMG_Load("input/image1.jpg");
-  SDL_Surface *image2 = IMG_Load("input/image2.jpg");
-  SDL_Surface *image3 = IMG_Load("input/image3.jpg");
-  if(image1 == 0 || image2 == 0 || image3 == 0){
-    std::cerr << "error loading images" << std::endl;
-    return 0;
-  }
+  
+  if(argc <= 1){
+	  image1 = IMG_Load("input/image1.jpg");
+	  image2 = IMG_Load("input/image2.jpg");
+	  image3 = IMG_Load("input/image3.jpg");
+	  if(image1 == 0 || image2 == 0 || image3 == 0){
+		std::cerr << "error loading images" << std::endl;
+		return 0;
+	  }
+	}
+	if(argc >=4){
+		image1 = IMG_Load(argv[1]);
+		image2 = IMG_Load(argv[2]);
+		image3 = IMG_Load(argv[3]);
+		if(image1 == 0 || image2 == 0 || image3 == 0){
+		std::cerr << "error loading images" << std::endl;
+		return 0;
+		}
+	}
 
   // Init screen surface
   if(SDL_Init(SDL_INIT_VIDEO) == -1){
@@ -68,12 +83,30 @@ int main(int argc, char *argv[])
   Eigen::MatrixXd list1;
   Eigen::MatrixXd list2;
   Eigen::MatrixXd list3;
-  kn::loadMatrix(list1,"input/list1.list");
-  std::ofstream list1File;
-  kn::loadMatrix(list2,"input/list2.list");
-  std::ofstream list2File;
-  kn::loadMatrix(list3,"input/list3.list");
-  std::ofstream list3File;
+ // if (argc == 1){
+  	  kn::loadMatrix(list1,"input/list1.list");
+	  std::ofstream list1File;
+	  kn::loadMatrix(list2,"input/list2.list");
+	  std::ofstream list2File;
+	  kn::loadMatrix(list3,"input/list3.list");
+	  std::ofstream list3File;
+  /*}
+  if(argc == 4){
+	  kn::loadMatrix(list1,"input/emptyList.list");
+	  std::ofstream list1File;
+	  kn::loadMatrix(list2,"input/emptyList.list");
+	  std::ofstream list2File;
+	  kn::loadMatrix(list3,"input/emptyList.list");
+	  std::ofstream list3File;
+   }*/
+   /*if(argc >= 5){
+   	  kn::loadMatrix(list1,argv[4]);
+	  std::ofstream list1File;
+	  kn::loadMatrix(list2,argv[5]);
+	  std::ofstream list2File;
+	  kn::loadMatrix(list3,argv[6]);
+	  std::ofstream list3File;
+   }*/
   
 
 
