@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {0.1}List of the elements}{2}
+\contentsline {section}{\numberline {0.2}Description of the elements encoded}{2}
+\contentsline {subsection}{\numberline {0.2.1}Tensor}{2}
+\contentsline {subsection}{\numberline {0.2.2}Transfert}{3}
+\contentsline {subsubsection}{Transfert on the first picture}{3}
+\contentsline {subsubsection}{Transfert on the second and third picture}{4}
+\contentsline {subsection}{\numberline {0.2.3}Saving the clicked points}{4}
+\contentsline {subsection}{\numberline {0.2.4}Save or load in a file}{4}

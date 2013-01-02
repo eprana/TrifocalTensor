@@ -83,14 +83,14 @@ int main(int argc, char *argv[])
   Eigen::MatrixXd list1;
   Eigen::MatrixXd list2;
   Eigen::MatrixXd list3;
- // if (argc == 1){
-  	  kn::loadMatrix(list1,"input/list1.list");
+  if (argc == 1){
+  	kn::loadMatrix(list1,"input/list1.list");
 	  std::ofstream list1File;
 	  kn::loadMatrix(list2,"input/list2.list");
 	  std::ofstream list2File;
 	  kn::loadMatrix(list3,"input/list3.list");
 	  std::ofstream list3File;
-  /*}
+  }
   if(argc == 4){
 	  kn::loadMatrix(list1,"input/emptyList.list");
 	  std::ofstream list1File;
@@ -98,15 +98,15 @@ int main(int argc, char *argv[])
 	  std::ofstream list2File;
 	  kn::loadMatrix(list3,"input/emptyList.list");
 	  std::ofstream list3File;
-   }*/
-   /*if(argc >= 5){
-   	  kn::loadMatrix(list1,argv[4]);
+   }
+   if(argc >= 5){
+   	kn::loadMatrix(list1,argv[4]);
 	  std::ofstream list1File;
 	  kn::loadMatrix(list2,argv[5]);
 	  std::ofstream list2File;
 	  kn::loadMatrix(list3,argv[6]);
 	  std::ofstream list3File;
-   }*/
+   }
   
 
 
@@ -238,7 +238,9 @@ int main(int argc, char *argv[])
 
                 }
               }
-            }         
+            }  
+
+            kn::saveMatrix(B, "input/B.list");
 
           // Apply the SVD
           Eigen::JacobiSVD<MatrixXd> jacobiB;
@@ -268,7 +270,8 @@ int main(int argc, char *argv[])
 
                 }
               }
-            }   
+            }  
+            kn::saveMatrix(B, "input/B.list"); 
 
          // Apply the SVD
           Eigen::JacobiSVD<MatrixXd> jacobiB;
