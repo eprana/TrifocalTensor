@@ -9,42 +9,10 @@
 #include "MathIO.hpp"
 #include "draw.hpp"
 #include "Tensor.hpp"
+#include "functions.hpp"
 
 static const size_t BYTES_PER_PIXEL = 32;
 
-void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std::string &filename) {
-  MatrixXd tmp = list;
-  list.resize(list.rows() + 1, list.cols());
-  list << tmp, newX, newY, newZ;
-  kn::saveMatrix(list, filename);
-}
-
-void readArguments(int argc, char** argv, SDL_Surface** images){
-
-  // English help
-  if( (argc == 2) && (strcmp("-h",argv[1]) == 0)) {
-    std::cout << "Help in english" << std::endl;
-  }
-  // If there is not at least 3 arguments, we load the default pictures
-  if(argc <= 2){
-    images[0] = IMG_Load("input/image1.jpg");
-    images[1] = IMG_Load("input/image2.jpg");
-    images[2] = IMG_Load("input/image3.jpg");
-    if(images[0] == 0 || images[1] == 0 || images[2] == 0){
-    std::cerr << "error loading images" << std::endl;
-    }
-  }
-  // If there is the three image files, there are loaded
-  if(argc == 4){
-    images[0] = IMG_Load(argv[1]);
-    images[1] = IMG_Load(argv[2]);
-    images[2] = IMG_Load(argv[3]);
-    if(images[0] == 0 || images[1] == 0 || images[2] == 0){
-    std::cerr << "error loading images" << std::endl;
-    }
-  }
-
-}
 
 int main(int argc, char *argv[])
 {
@@ -55,18 +23,28 @@ int main(int argc, char *argv[])
   }
 
   // Creation of variables
+  // Tensor
   Tensor tensor(3, 3, 3);
+  // Vectors
   VectorXd x = VectorXd::Zero(2);
   VectorXd b = VectorXd::Zero(4);
   VectorXd t = VectorXd::Zero(27);
+  // Matrices
   MatrixXd A = MatrixXd::Zero(28,27);
   MatrixXd B = MatrixXd::Zero(4,2);
+  // Images
   SDL_Surface** images;
   images[0] = NULL;
   images[1] = NULL;
   images[2] = NULL;
+  // Lists
+  Eigen::MatrixXd list1;
+  Eigen::MatrixXd list2;
+  Eigen::MatrixXd list3;
 
-  readArguments(argc, argv, images);
+  if(readArguments(argc, argv, images, list1, list2, list3)) {
+    return EXIT_FAILURE;
+  }
   
 
   // Init screen surface
@@ -89,40 +67,6 @@ int main(int argc, char *argv[])
   SDL_BlitSurface(images[1], NULL, screen, &imageOffset);
   imageOffset.x = images[0]->w + images[1]->w;
   SDL_BlitSurface(images[2], NULL, screen, &imageOffset);
-
-  // Load the point lists
-  std::cout << "Test6" << std::endl;
-  Eigen::MatrixXd list1;
-  Eigen::MatrixXd list2;
-  Eigen::MatrixXd list3;
-  if (argc == 1){
-  	kn::loadMatrix(list1,"input/list1.list");
-	  std::ofstream list1File;
-	  kn::loadMatrix(list2,"input/list2.list");
-	  std::ofstream list2File;
-	  kn::loadMatrix(list3,"input/list3.list");
-	  std::ofstream list3File;
-  }
-  if(argc == 4){
-	  kn::loadMatrix(list1,"input/emptyList.list");
-	  std::ofstream list1File;
-	  kn::loadMatrix(list2,"input/emptyList.list");
-	  std::ofstream list2File;
-	  kn::loadMatrix(list3,"input/emptyList.list");
-	  std::ofstream list3File;
-   }
-   if(argc >= 5){
-   	kn::loadMatrix(list1,argv[4]);
-	  std::ofstream list1File;
-	  kn::loadMatrix(list2,argv[5]);
-	  std::ofstream list2File;
-	  kn::loadMatrix(list3,argv[6]);
-	  std::ofstream list3File;
-   }
-
-   std::cout << "Test8" << std::endl;
-  
-
 
   // Save a list
   kn::saveMatrix(list1,"/tmp/myList.mat");
