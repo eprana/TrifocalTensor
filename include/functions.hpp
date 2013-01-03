@@ -15,6 +15,15 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
 // Update a matrix 
 void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std::string &filename);
 
-//
+// Calculate the tensor
 void calculateTensor(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Eigen::VectorXd& t, Tensor& tensor, Eigen::MatrixXd& A);
+
+// Transfert on the first image
+void firstTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor);
+
+// Transfert on the second image
+void secondTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor);
+
+// Transfert on the third image
+void thirdTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor);
 #endif

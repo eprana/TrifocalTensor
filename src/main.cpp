@@ -118,88 +118,10 @@ int main(int argc, char *argv[])
             updateMatrix( list3, (float)e.button.x - images[0]->w - images[1]->w, (float)e.button.y, 1.0, "/tmp/myList3.mat");
           }
 
-          // Calculation of the matrix B in Bx = 0 for the transfert on the first images
-          if( (list2.rows() > 7 && list3.rows() >7) && (list2.rows()==list3.rows() && list1.rows() == list2.rows()-1 )) {
-            std::cout << "Transfert on the first picture" <<std::endl;
-            for(int i = 0; i<2; ++i) {
-              for(int j = 0; j<2; ++j) {
-                for(int k = 0; k<3; ++k) {
-                  B(2*i + j, 0) = list2(list2.rows()-1,i)*tensor(2,j,0) - tensor(i,j,0) - list2(list2.rows()-1,i)*list3(list2.rows()-1,j)*tensor(2,2,0) + list3(list2.rows()-1,j)*tensor(i,2,0);
-                  B(2*i + j, 1) = list2(list2.rows()-1,i)*tensor(2,j,1) - tensor(i,j,1) - list2(list2.rows()-1,i)*list3(list2.rows()-1,j)*tensor(2,2,1) + list3(list2.rows()-1,j)*tensor(i,2,1);
-                  b(2*i + j) = - (list2(list2.rows()-1,i)*tensor(2,j,2) - tensor(i,j,2) - list2(list2.rows()-1,i)*list3(list2.rows()-1,j)*tensor(2,2,2) + list3(list2.rows()-1,j)*tensor(i,2,2));
-                }
-              }
-            }           
-
-            // Apply the SVD
-            Eigen::JacobiSVD<MatrixXd> jacobiB;
-            jacobiB.compute(B, ComputeThinU | ComputeThinV);
-            x = jacobiB.solve(b);
-
-            // Add the point to list1
-            updateMatrix( list1, x(0), x(1), 1.0, "/tmp/myList1.mat");
-          }
-
-
-          // Calculation of the matrix B in Bx = 0 for the transfert on the second images
-          if( (list1.rows() > 7 && list3.rows() >7) && (list1.rows()==list3.rows() && list2.rows() == list1.rows()-1 )) {
-            std::cout << "Transfert on the second picture" <<std::endl;
-
-            B = MatrixXd::Zero(4,2);
-            b = VectorXd::Zero(4);
-
-            for(int i = 0; i<2; ++i) {
-              for(int j = 0; j<2; ++j) {
-                for(int k = 0; k<3; ++k) {
-                  B(2*i + j, i) +=  list1(list1.rows()-1,k)*  (tensor(2,j,k) - list3(list1.rows()-1,j)*tensor(2,2,k));
-                  b(2*i + j) += list1(list1.rows()-1,k)*(-list3(list1.rows()-1,j)*tensor(i,2,k) + tensor(i,j,k));
-
-                }
-              }
-            }  
-
-              kn::saveMatrix(B, "input/B.list");
-
-            // Apply the SVD
-            Eigen::JacobiSVD<MatrixXd> jacobiB;
-            jacobiB.compute(B, ComputeThinU | ComputeThinV);
-            x = jacobiB.solve(b);
-
-            // Add the point to list2
-            std::cout << "Adding point the list2" << std::endl;
-            updateMatrix( list2, x(0), x(1), 1.0, "/tmp/myList2.mat");
-
-          }
-
- 
-
-          // Calculation of the matrix B in Bx = b for the transfert on the third images
-          if( (list1.rows() > 7 && list2.rows() > 7 ) && (list1.rows() == list2.rows() && list3.rows() == list2.rows()-1 )) {
-            std::cout << "Calculation of B and b" << std::endl;
-            std::cout << "Transfert on the third picture" <<std::endl;
-
-            B = MatrixXd::Zero(4,2);
-            b = VectorXd::Zero(4);
-             
-            for(int i = 0; i<2; ++i) {
-              for(int j = 0; j<2; ++j) {
-                for(int k = 0; k<3; ++k) {
-                  B(2*i + j, j) +=  list1(list1.rows()-1,k)*(tensor(i,2,k) - list2(list1.rows()-1,i)*tensor(2,2,k));
-                  b(2*i + j) += list1(list1.rows()-1,k)*(-list2(list1.rows()-1,i)*tensor(2,j,k) + tensor(i,j,k));
-
-                }
-              }
-            }  
-            kn::saveMatrix(B, "input/B.list"); 
-
-         // Apply the SVD
-          Eigen::JacobiSVD<MatrixXd> jacobiB;
-          jacobiB.compute(B, ComputeThinU | ComputeThinV);
-          x = jacobiB.solve(b);
-
-          // Add the point to list3
-          updateMatrix( list3, x(0), x(1), 1.0, "/tmp/myList3.mat");
-        }
+          firstTransfert(list1, list2, list3, tensor);
+          secondTransfert(list1, list2, list3, tensor);
+          thirdTransfert(list1, list2, list3, tensor);
+   
         }
       }
       // Closing of the window
