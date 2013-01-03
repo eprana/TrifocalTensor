@@ -17,7 +17,7 @@ void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std:
     }
 }
 
-bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3){
+bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, std::string& repository){
 
   // English help
   if( (argc == 2) && (strcmp("-h",argv[1]) == 0)) {
@@ -25,13 +25,17 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
 
     std::cout << " This logiciel enable to find a point on a given image of a 3D scene by clicking the same point on two other images of the same scene on a different angle."<< std::endl << std::endl;
     std::cout << " In order to do that, you have to click, in the same order, on 7 similar points on the three images" << std::endl << std::endl;
-    std::cout << " The, if you pick the point on two images, it will calculate the third one on the last image" << std::endl << std::endl << std::endl;
+    std::cout << " Then, if you pick the point on two images, it will calculate the third one on the last image" << std::endl << std::endl << std::endl;
+    std::cout << " By default, the lists of clicked points are saved in your tmp repository. "<< std::endl << std::endl;
 
     std::cout << "./bin/trifocal  [OPTIONS] \t launch the program with default pictures and list of points" << std::endl << std::endl;
     std::cout << "[image1].jpg [image2].jpg [image3].jpg : \t launch the program with the three given images" << std::endl << std::endl;
-    std::cout << "[image1].jpg [image2].jpg [image3].jpg [list1].list [list2].list [list3].list : \t launch the program with the three given images and the list of corresponding points" << std::endl;
+    std::cout << "[image1].jpg [image2].jpg [image3].jpg [repository]: \t launch the program with the three given images and the path to the repository where the list of cliked points will be saved" << std::endl << std::endl;
+    std::cout << "[image1].jpg [image2].jpg [image3].jpg [list1].list [list2].list [list3].list : \t launch the program with the three given images and the list of corresponding points" << std::endl << std::endl;
+    std::cout << "[image1].jpg [image2].jpg [image3].jpg [list1].list [list2].list [list3].list [repository]: \t launch the program with the three given images and the list of corresponding points and the path to the repository where the list of cliked points will be saved" << std::endl << std::endl;
 
   }
+
   // If there is not at least 3 arguments, we load the default pictures and their lists
   if(argc <= 2){
 
@@ -63,8 +67,42 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     return EXIT_SUCCESS;
   }
 
+  else if(argc == 5){
+
+    repository = argv[4];
+
+    images[0] = IMG_Load(argv[1]);
+    images[1] = IMG_Load(argv[2]);
+    images[2] = IMG_Load(argv[3]);
+
+    if(images[0] == 0 || images[1] == 0 || images[2] == 0){
+      std::cerr << "error loading images" << std::endl;
+    }
+
+    return EXIT_SUCCESS;
+  }
+
   // If the images and lists files are mentionned, there are loaded
   else if(argc == 7){
+
+    images[0] = IMG_Load(argv[1]);
+    images[1] = IMG_Load(argv[2]);
+    images[2] = IMG_Load(argv[3]);
+
+    if(images[0] == 0 || images[1] == 0 || images[2] == 0){
+      std::cerr << "error loading images" << std::endl;
+    }
+
+    kn::loadMatrix(list1,argv[4]);
+    kn::loadMatrix(list2,argv[5]);
+    kn::loadMatrix(list3,argv[6]);
+
+    return EXIT_SUCCESS;
+   }
+
+   else if(argc == 8){
+
+    repository = argv[7];
 
     images[0] = IMG_Load(argv[1]);
     images[1] = IMG_Load(argv[2]);
