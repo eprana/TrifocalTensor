@@ -58,7 +58,7 @@ namespace kn {
       exit(0);				
     }
 
-    matrixFile.peek();
+    /*matrixFile.peek();
     if(matrixFile.eof()) {
       M.resize(7,3);
       for(int i = 0; i < 7; ++i) {
@@ -67,8 +67,8 @@ namespace kn {
         M(i,2) = 1;
       }
 
-    }
-    if(!matrixFile.eof()) {
+    }*/
+    //if(!matrixFile.eof()) {
       unsigned int row    = 0;
       unsigned int column = 0;
       bool header = readMatrixHeader(matrixFile,row,column);
@@ -77,7 +77,7 @@ namespace kn {
       // Read the data
       if(header) readMatrixFromHeader(M,matrixFile,row,column);
       else readMatrix(M,matrixFile);
-    }
+    //}
     
 
     // Close

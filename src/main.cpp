@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
   }
   
-
   // Init screen surface
   if(SDL_Init(SDL_INIT_VIDEO) == -1){
     std::cerr << "error SDL_Init" << std::endl;
@@ -80,7 +79,7 @@ int main(int argc, char *argv[])
   while(!done) {
 
     // Calculation of the matrix A in At = 0
-    if(list1.rows() >= 7 && list2.rows() >= 7) {
+    if(list1.rows() >= 7 && list2.rows() >= 7 && list3.rows() >= 7) {
       for(int p=0; p<7; ++p) {
         for(int i=0; i<2; ++i) {
           for(int l=0; l<2; ++l) {
@@ -99,7 +98,6 @@ int main(int argc, char *argv[])
     // Apply the SVD
     Eigen::JacobiSVD<MatrixXd> jacobiA;
     jacobiA.compute(A, ComputeThinU | ComputeThinV);
-    MatrixXd U = jacobiA.matrixU();
     MatrixXd V = jacobiA.matrixV();
 
 
@@ -148,14 +146,23 @@ int main(int argc, char *argv[])
         if(e.button.button == SDL_BUTTON_LEFT) {
           if(e.button.x <= images[0]->w) {
             updateMatrix( list1, (float)e.button.x, (float)e.button.y, 1.0, "/tmp/myList1.mat");
+            std::cout << "List1 : " << list1.rows() << std::endl;
+            std::cout << "List2 : " << list2.rows() << std::endl;
+            std::cout << "List3 : " << list3.rows() << std::endl;
           }
 
           if(images[0]->w < e.button.x && e.button.x <= images[1]->w + images[0]->w) {
             updateMatrix( list2, (float)e.button.x - images[0]->w, (float)e.button.y, 1.0, "/tmp/myList2.mat");
+            std::cout << "List1 : " << list1.rows() << std::endl;
+            std::cout << "List2 : " << list2.rows() << std::endl;
+            std::cout << "List3 : " << list3.rows() << std::endl;
           }
 
           if(images[0]->w + images[1]->w < e.button.x && e.button.x <= images[2]->w + images[1]->w + images[0]->w) {
             updateMatrix( list3, (float)e.button.x - images[0]->w - images[1]->w, (float)e.button.y, 1.0, "/tmp/myList3.mat");
+            std::cout << "List1 : " << list1.rows() << std::endl;
+            std::cout << "List2 : " << list2.rows() << std::endl;
+            std::cout << "List3 : " << list3.rows() << std::endl;
           }
 
           // Calculation of the matrix B in Bx = 0 for the transfert on the first images
@@ -171,13 +178,13 @@ int main(int argc, char *argv[])
               }
             }           
 
-          // Apply the SVD
-          Eigen::JacobiSVD<MatrixXd> jacobiB;
-          jacobiB.compute(B, ComputeThinU | ComputeThinV);
-          x = jacobiB.solve(b);
+            // Apply the SVD
+            Eigen::JacobiSVD<MatrixXd> jacobiB;
+            jacobiB.compute(B, ComputeThinU | ComputeThinV);
+            x = jacobiB.solve(b);
 
-          // Add the point to list1
-          updateMatrix( list1, x(0), x(1), 1.0, "/tmp/myList1.mat");
+            // Add the point to list1
+            updateMatrix( list1, x(0), x(1), 1.0, "/tmp/myList1.mat");
           }
 
 
@@ -198,15 +205,16 @@ int main(int argc, char *argv[])
               }
             }  
 
-            kn::saveMatrix(B, "input/B.list");
+              kn::saveMatrix(B, "input/B.list");
 
-          // Apply the SVD
-          Eigen::JacobiSVD<MatrixXd> jacobiB;
-          jacobiB.compute(B, ComputeThinU | ComputeThinV);
-          x = jacobiB.solve(b);
+            // Apply the SVD
+            Eigen::JacobiSVD<MatrixXd> jacobiB;
+            jacobiB.compute(B, ComputeThinU | ComputeThinV);
+            x = jacobiB.solve(b);
 
-          // Add the point to list2
-          updateMatrix( list2, x(0), x(1), 1.0, "/tmp/myList2.mat");
+            // Add the point to list2
+            std::cout << "Adding point the list2" << std::endl;
+            updateMatrix( list2, x(0), x(1), 1.0, "/tmp/myList2.mat");
 
           }
 

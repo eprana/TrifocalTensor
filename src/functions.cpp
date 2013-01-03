@@ -1,10 +1,20 @@
 #include "functions.hpp"
 
 void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std::string &filename) {
-  MatrixXd tmp = list;
-  list.resize(list.rows() + 1, list.cols());
-  list << tmp, newX, newY, newZ;
-  kn::saveMatrix(list, filename);
+    if(list.rows() == 0) {
+        list.resize(1,3);
+        list(0,0) = newX;
+        list(0,1) = newY;
+        list(0,2) = newZ;
+
+        kn::saveMatrix(list, filename);
+    }
+    else {
+        MatrixXd tmp = list;
+        list.resize(list.rows() + 1, list.cols());
+        list << tmp, newX, newY, newZ;
+        kn::saveMatrix(list, filename);
+    }
 }
 
 bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3){
@@ -25,15 +35,12 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     }
 
     kn::loadMatrix(list1,"input/list1.list");
-    std::ofstream list1File;
     kn::loadMatrix(list2,"input/list2.list");
-    std::ofstream list2File;
     kn::loadMatrix(list3,"input/list3.list");
-    std::ofstream list3File;
 
     return EXIT_SUCCESS;
   }
-  // If there is the three image files, there are loaded with empty lists
+  // If there is the three image files
   else if(argc == 4){
 
     images[0] = IMG_Load(argv[1]);
@@ -43,13 +50,6 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     if(images[0] == 0 || images[1] == 0 || images[2] == 0){
       std::cerr << "error loading images" << std::endl;
     }
-
-    kn::loadMatrix(list1,"input/emptyList.list");
-    std::ofstream list1File;
-    kn::loadMatrix(list2,"input/emptyList.list");
-    std::ofstream list2File;
-    kn::loadMatrix(list3,"input/emptyList.list");
-    std::ofstream list3File;
 
     return EXIT_SUCCESS;
   }
@@ -66,11 +66,8 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     }
 
     kn::loadMatrix(list1,argv[4]);
-    std::ofstream list1File;
     kn::loadMatrix(list2,argv[5]);
-    std::ofstream list2File;
     kn::loadMatrix(list3,argv[6]);
-    std::ofstream list3File;
 
     return EXIT_SUCCESS;
    }
