@@ -19,6 +19,33 @@ void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std:
   kn::saveMatrix(list, filename);
 }
 
+void readArguments(int argc, char** argv, SDL_Surface** images){
+
+  // English help
+  if( (argc == 2) && (strcmp("-h",argv[1]) == 0)) {
+    std::cout << "Help in english" << std::endl;
+  }
+  // If there is not at least 3 arguments, we load the default pictures
+  if(argc <= 2){
+    images[0] = IMG_Load("input/image1.jpg");
+    images[1] = IMG_Load("input/image2.jpg");
+    images[2] = IMG_Load("input/image3.jpg");
+    if(images[0] == 0 || images[1] == 0 || images[2] == 0){
+    std::cerr << "error loading images" << std::endl;
+    }
+  }
+  // If there is the three image files, there are loaded
+  if(argc == 4){
+    images[0] = IMG_Load(argv[1]);
+    images[1] = IMG_Load(argv[2]);
+    images[2] = IMG_Load(argv[3]);
+    if(images[0] == 0 || images[1] == 0 || images[2] == 0){
+    std::cerr << "error loading images" << std::endl;
+    }
+  }
+
+}
+
 int main(int argc, char *argv[])
 {
   // Init SDL image
@@ -34,52 +61,37 @@ int main(int argc, char *argv[])
   VectorXd t = VectorXd::Zero(27);
   MatrixXd A = MatrixXd::Zero(28,27);
   MatrixXd B = MatrixXd::Zero(4,2);
-  SDL_Surface *image1;
-  SDL_Surface *image2;
-  SDL_Surface *image3;
+  SDL_Surface** images;
+  images[0] = NULL;
+  images[1] = NULL;
+  images[2] = NULL;
 
-  // Load some images
+  readArguments(argc, argv, images);
   
-  if(argc <= 1){
-	  image1 = IMG_Load("input/image1.jpg");
-	  image2 = IMG_Load("input/image2.jpg");
-	  image3 = IMG_Load("input/image3.jpg");
-	  if(image1 == 0 || image2 == 0 || image3 == 0){
-		std::cerr << "error loading images" << std::endl;
-		return 0;
-	  }
-	}
-	if(argc >=4){
-		image1 = IMG_Load(argv[1]);
-		image2 = IMG_Load(argv[2]);
-		image3 = IMG_Load(argv[3]);
-		if(image1 == 0 || image2 == 0 || image3 == 0){
-		std::cerr << "error loading images" << std::endl;
-		return 0;
-		}
-	}
 
   // Init screen surface
   if(SDL_Init(SDL_INIT_VIDEO) == -1){
     std::cerr << "error SDL_Init" << std::endl;
     return EXIT_FAILURE;
   }
+  std::cout << "Test5" << std::endl;
 
   // Create a screen surface that will include the 3 images
-  SDL_Surface *screen = SDL_SetVideoMode(image1->w + image2->w + image3->w, image1->h, BYTES_PER_PIXEL, SDL_HWSURFACE);
+  SDL_Surface *screen = SDL_SetVideoMode(images[0]->w + images[1]->w + images[2]->w, images[0]->h, BYTES_PER_PIXEL, SDL_HWSURFACE);
   SDL_WM_SetCaption("Trifocal Tensor", NULL);
 
   // Blit the images on the surface  
   SDL_Rect imageOffset;
   imageOffset.x = 0;
   imageOffset.y = 0;
-  SDL_BlitSurface(image1, NULL, screen, &imageOffset);
-  imageOffset.x = image1->w;
-  SDL_BlitSurface(image2, NULL, screen, &imageOffset);
-  imageOffset.x = image1->w + image2->w;
-  SDL_BlitSurface(image3, NULL, screen, &imageOffset);
+  SDL_BlitSurface(images[0], NULL, screen, &imageOffset);
+  imageOffset.x = images[0]->w;
+  SDL_BlitSurface(images[1], NULL, screen, &imageOffset);
+  imageOffset.x = images[0]->w + images[1]->w;
+  SDL_BlitSurface(images[2], NULL, screen, &imageOffset);
 
   // Load the point lists
+  std::cout << "Test6" << std::endl;
   Eigen::MatrixXd list1;
   Eigen::MatrixXd list2;
   Eigen::MatrixXd list3;
@@ -107,6 +119,8 @@ int main(int argc, char *argv[])
 	  kn::loadMatrix(list3,argv[6]);
 	  std::ofstream list3File;
    }
+
+   std::cout << "Test8" << std::endl;
   
 
 
@@ -159,22 +173,22 @@ int main(int argc, char *argv[])
       }
     } 
 
-    // Draw points on image1
+    // Draw points on images[0]
     for(int i=0; i<list1.rows(); ++i)
       if(list1(i,0) != 0 && list1(i,1) != 0) {
         fill_circle(screen, list1(i,0), list1(i,1), 3, red);
       }
 
-    // Draw points on image2
+    // Draw points on images[1]
     for(int i=0; i<list2.rows(); ++i)
       if(list2(i,0) != 0 && list2(i,1) != 0) {
-       fill_circle(screen, list2(i,0)+image1->w, list2(i,1), 3, blue);
+       fill_circle(screen, list2(i,0)+images[0]->w, list2(i,1), 3, blue);
       }
 
-    // Draw points on image3
+    // Draw points on images[2]
     for(int i=0; i<list3.rows(); ++i)
       if(list3(i,0) != 0 && list3(i,1) != 0) {
-        fill_circle(screen, list3(i,0)+image1->w+image2->w, list3(i,1), 3, yellow);
+        fill_circle(screen, list3(i,0)+images[0]->w+images[1]->w, list3(i,1), 3, yellow);
       }
 
     // Display everything
@@ -188,19 +202,19 @@ int main(int argc, char *argv[])
       if(e.type == SDL_MOUSEBUTTONDOWN) {
         // Left clic
         if(e.button.button == SDL_BUTTON_LEFT) {
-          if(e.button.x <= image1->w) {
+          if(e.button.x <= images[0]->w) {
             updateMatrix( list1, (float)e.button.x, (float)e.button.y, 1.0, "/tmp/myList1.mat");
           }
 
-          if(image1->w < e.button.x && e.button.x <= image2->w + image1->w) {
-            updateMatrix( list2, (float)e.button.x - image1->w, (float)e.button.y, 1.0, "/tmp/myList2.mat");
+          if(images[0]->w < e.button.x && e.button.x <= images[1]->w + images[0]->w) {
+            updateMatrix( list2, (float)e.button.x - images[0]->w, (float)e.button.y, 1.0, "/tmp/myList2.mat");
           }
 
-          if(image1->w + image2->w < e.button.x && e.button.x <= image3->w + image2->w + image1->w) {
-            updateMatrix( list3, (float)e.button.x - image1->w - image2->w, (float)e.button.y, 1.0, "/tmp/myList3.mat");
+          if(images[0]->w + images[1]->w < e.button.x && e.button.x <= images[2]->w + images[1]->w + images[0]->w) {
+            updateMatrix( list3, (float)e.button.x - images[0]->w - images[1]->w, (float)e.button.y, 1.0, "/tmp/myList3.mat");
           }
 
-          // Calculation of the matrix B in Bx = 0 for the transfert on the first image
+          // Calculation of the matrix B in Bx = 0 for the transfert on the first images
           if( (list2.rows() > 7 && list3.rows() >7) && (list2.rows()==list3.rows() && list1.rows() == list2.rows()-1 )) {
             std::cout << "Transfert on the first picture" <<std::endl;
             for(int i = 0; i<2; ++i) {
@@ -223,7 +237,7 @@ int main(int argc, char *argv[])
           }
 
 
-          // Calculation of the matrix B in Bx = 0 for the transfert on the second image
+          // Calculation of the matrix B in Bx = 0 for the transfert on the second images
           if( (list1.rows() > 7 && list3.rows() >7) && (list1.rows()==list3.rows() && list2.rows() == list1.rows()-1 )) {
             std::cout << "Transfert on the second picture" <<std::endl;
 
@@ -254,7 +268,7 @@ int main(int argc, char *argv[])
 
  
 
-          // Calculation of the matrix B in Bx = b for the transfert on the third image
+          // Calculation of the matrix B in Bx = b for the transfert on the third images
           if( (list1.rows() > 7 && list2.rows() > 7 ) && (list1.rows() == list2.rows() && list3.rows() == list2.rows()-1 )) {
             std::cout << "Calculation of B and b" << std::endl;
             std::cout << "Transfert on the third picture" <<std::endl;
@@ -294,9 +308,9 @@ int main(int argc, char *argv[])
           
 
   // Quit sdl
-  SDL_FreeSurface(image1); 
-  SDL_FreeSurface(image2); 
-  SDL_FreeSurface(image3); 
+  SDL_FreeSurface(images[0]); 
+  SDL_FreeSurface(images[1]); 
+  SDL_FreeSurface(images[2]); 
   IMG_Quit();
   SDL_Quit();
 
