@@ -33,10 +33,8 @@ int main(int argc, char *argv[])
   MatrixXd A = MatrixXd::Zero(28,27);
   MatrixXd B = MatrixXd::Zero(4,2);
   // Images
-  SDL_Surface** images;
-  images[0] = NULL;
-  images[1] = NULL;
-  images[2] = NULL;
+  SDL_Surface* images[3];
+
   // Lists
   Eigen::MatrixXd list1;
   Eigen::MatrixXd list2;
@@ -51,7 +49,6 @@ int main(int argc, char *argv[])
     std::cerr << "error SDL_Init" << std::endl;
     return EXIT_FAILURE;
   }
-  std::cout << "Test5" << std::endl;
 
   // Create a screen surface that will include the 3 images
   SDL_Surface *screen = SDL_SetVideoMode(images[0]->w + images[1]->w + images[2]->w, images[0]->h, BYTES_PER_PIXEL, SDL_HWSURFACE);
@@ -78,42 +75,7 @@ int main(int argc, char *argv[])
   bool done = false;
   while(!done) {
 
-    // Calculation of the matrix A in At = 0
-    if(list1.rows() >= 7 && list2.rows() >= 7 && list3.rows() >= 7) {
-      for(int p=0; p<7; ++p) {
-        for(int i=0; i<2; ++i) {
-          for(int l=0; l<2; ++l) {
-            for(int k=0; k<3; ++k) {
-              A(4*p + 2*i + l, 9*k + 3*i + l) -= list1(p,k)*list2(p,2)*list3(p,2);
-              A(4*p + 2*i + l, 9*k + 3*i + 2) += list1(p,k)*list2(p,2)*list3(p,l);
-              A(4*p + 2*i + l, 9*k + 6 + l) += list1(p,k)*list2(p,i)*list3(p,2);
-              A(4*p + 2*i + l, 9*k + 8) -= list1(p,k)*list2(p,i)*list3(p,l);
-            }
-
-          }
-        }
-      } 
-    }
-
-    // Apply the SVD
-    Eigen::JacobiSVD<MatrixXd> jacobiA;
-    jacobiA.compute(A, ComputeThinU | ComputeThinV);
-    MatrixXd V = jacobiA.matrixV();
-
-
-    // Calculate t
-    for(int i=0; i< V.rows(); ++i) {
-      t(i) = V(i, V.cols() -1);     
-    }
-
-    // Put t in T
-    for(int i = 0; i< tensor.getI(); ++i) {
-      for(int j = 0; j<tensor.getJ(); ++j) {
-        for(int k=0; k<tensor.getK(); ++k) {
-          tensor.setT(i,j,k, t(9*k + 3*i + j));
-        }
-      }
-    } 
+     calculateTensor(list1, list2, list3, t, tensor, A);
 
     // Draw points on images[0]
     for(int i=0; i<list1.rows(); ++i)
@@ -146,23 +108,14 @@ int main(int argc, char *argv[])
         if(e.button.button == SDL_BUTTON_LEFT) {
           if(e.button.x <= images[0]->w) {
             updateMatrix( list1, (float)e.button.x, (float)e.button.y, 1.0, "/tmp/myList1.mat");
-            std::cout << "List1 : " << list1.rows() << std::endl;
-            std::cout << "List2 : " << list2.rows() << std::endl;
-            std::cout << "List3 : " << list3.rows() << std::endl;
           }
 
           if(images[0]->w < e.button.x && e.button.x <= images[1]->w + images[0]->w) {
             updateMatrix( list2, (float)e.button.x - images[0]->w, (float)e.button.y, 1.0, "/tmp/myList2.mat");
-            std::cout << "List1 : " << list1.rows() << std::endl;
-            std::cout << "List2 : " << list2.rows() << std::endl;
-            std::cout << "List3 : " << list3.rows() << std::endl;
           }
 
           if(images[0]->w + images[1]->w < e.button.x && e.button.x <= images[2]->w + images[1]->w + images[0]->w) {
             updateMatrix( list3, (float)e.button.x - images[0]->w - images[1]->w, (float)e.button.y, 1.0, "/tmp/myList3.mat");
-            std::cout << "List1 : " << list1.rows() << std::endl;
-            std::cout << "List2 : " << list2.rows() << std::endl;
-            std::cout << "List3 : " << list3.rows() << std::endl;
           }
 
           // Calculation of the matrix B in Bx = 0 for the transfert on the first images

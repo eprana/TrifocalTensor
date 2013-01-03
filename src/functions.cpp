@@ -75,3 +75,45 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
   std::cerr << "Invalid argument, please type -h to read the help" << std::endl;
   return EXIT_FAILURE;
 }
+
+
+// Calculate the 
+void calculateTensor(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Eigen::VectorXd& t, Tensor& tensor, Eigen::MatrixXd& A) {
+    // Calculation of the matrix A in At = 0
+    if(list1.rows() >= 7 && list2.rows() >= 7 && list3.rows() >= 7) {
+      for(int p=0; p<7; ++p) {
+        for(int i=0; i<2; ++i) {
+          for(int l=0; l<2; ++l) {
+            for(int k=0; k<3; ++k) {
+              A(4*p + 2*i + l, 9*k + 3*i + l) -= list1(p,k)*list2(p,2)*list3(p,2);
+              A(4*p + 2*i + l, 9*k + 3*i + 2) += list1(p,k)*list2(p,2)*list3(p,l);
+              A(4*p + 2*i + l, 9*k + 6 + l) += list1(p,k)*list2(p,i)*list3(p,2);
+              A(4*p + 2*i + l, 9*k + 8) -= list1(p,k)*list2(p,i)*list3(p,l);
+            }
+
+          }
+        }
+      } 
+    }
+
+    // Apply the SVD
+    Eigen::JacobiSVD<MatrixXd> jacobiA;
+    jacobiA.compute(A, ComputeThinU | ComputeThinV);
+    MatrixXd V = jacobiA.matrixV();
+
+
+    // Calculate t
+    for(int i=0; i< V.rows(); ++i) {
+      t(i) = V(i, V.cols() -1);     
+    }
+
+    // Put t in T
+    for(int i = 0; i< tensor.getI(); ++i) {
+      for(int j = 0; j<tensor.getJ(); ++j) {
+        for(int k=0; k<tensor.getK(); ++k) {
+          tensor.setT(i,j,k, t(9*k + 3*i + j));
+        }
+      }
+    } 
+}
+    
