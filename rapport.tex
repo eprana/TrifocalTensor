@@ -12,17 +12,19 @@
 \section{List of the elements}
 \begin{list}{•}{•}
 \item 
-Display the help in english with -h : element requested, encoded but not working. 
+Display the help in english with -h : element requested, encoded and working.  
 \item
 Launch into the consol with the name of the three pictures to load : element requested, encoded and working. 
 \item
 Launch into the consol with the name of the three lists to load : element requested, encoded and working. 
 \item
-Saving a list of clicked points : element requested, encoded but not working. 
+Saving a list of clicked points : element requested, encoded and working.  
 \item
 Calculation of a tensor : element requested, encoded and working. 
 \item
-Transfert the points with the tensor : element requested, encoded and working. 
+Transfert the points with the tensor : element requested, encoded and working.
+\item 
+Launch into the consol with the path of the repository in which save the lists : element not requested, encoded and working.  
 
 \end{list}
 
@@ -33,9 +35,9 @@ In order to build the tensor, we found the 27 equations derivated from this one 
  $ \displaystyle { \sum_{k = 1}^{3}} x_{p}^{k}(x_{p}^{'i}x_{p}^{''3}T_{k}^{3l} - x_{p}^{'3}x_{p}^{''3}T_{k}^{il} - x_{p}^{'i}x_{p}^{''l}T_{k}^{33} + x_{p}^{'3}x_{p}^{''l}T_{k}^{i3})$ 
 \end{center}
 
-Let's call $A_{k}^{il}$ the coefficient of the $T_{k}^{il}$ elements in all these equations. We noticed that there were only four coefficient for one equation, the others were then equal to zero. 
+Let's call $A_{k}^{il}$ the coefficient of the $T_{k}^{il}$ elements in all these equations. We noticed that there were only four coefficients for one equation to find, the others were then equal to zero. 
 
-A row of the matrix A is  $[ A_{1}^{il}, A_{2}^{il}, A_{3}^{il} ]$. There is 28 rows since there are four equations a point, and seven points. We just need to choose carefully the subscripts. 
+A row of the matrix A is  $[ A_{1}^{il}, A_{2}^{il}, A_{3}^{il} ]$. There is 28 rows since there are four equations for a point, and seven points. We just need to choose carefully the subscripts. 
 
 Here is the pseudocode of the fullfilling of the A matrix : 
 \\FOR p from 0 to 6
@@ -77,14 +79,12 @@ We don't forget to put the elements of t in the real tensor T. And then we have 
 \subsection{Transfert}
 The transfert was a difficult part of the project. First, we focus on the transfert for the first image. 
 \subsubsection{Transfert on the first picture}
-The main difficulty was to transform the equations into matrices and vector. At the beginning, we tried to use the SVD one the same way that for the tensor since we did'nt see that it was an equation like $Bx = b$.
-In order to simplify the calculations, we decided to put all the third coordinates to 1. So the matrix B was a 4x2 matrix. To fulfill the B matrix, we used the same loop than to fulfill A, removing the one with p. 
+The main difficulty was to transform the equations into matrices and vectors. At the beginning, we tried to use the SVD one the same way that for the tensor since we did'nt see that it was an equation like $Bx = b$.
+In order to simplify the calculations, we decided to put all the third coordinates to 1. So the matrix B was a 4x2 matrix. To fulfill the B matrix, we used the same loop than to fulfill A, removing the one with p and the one with k. 
 Thus, in order find the eighth point of the first image, we had this :
 \\FOR i from 0 to 1
 		\begin{verse}
 		FOR l from 0 to 1
-			\begin{verse}
-			FOR k from 0 to 2
 \begin{verse}
 \begin{list}{•}{•}
 \item 
@@ -94,32 +94,27 @@ B[2i +j, 1]= $list2(7,i)T_{2}^{j1} - T_{i}^{j1} - list2(7,i)list3(7,j)T_{2}^{21}
 \end{list}
 
 
-increment k of 1
 \end{verse}
-				increment l of 1
-			\\END FOR
-			\end{verse}
-			increment i of 1		
+				increment l of 1			
 		\\END FOR
 		\end{verse}	
-	END FOR
+		increment i of 1
+	\\END FOR
 
 We calculate the b vector in the same loop and apply the method solve of the Eigen Library. 
 
 \subsubsection{Transfert on the second and third picture}
-We take time to understand the fact that the column of the matrix B were not depending on k anymore, but on i for the second picture and l for the third. Once understood, the method is the same unless that 
-BKDKSJDNLSJBHDLJGSLJSLHGLG
+We take time to understand the fact that the column of the matrix B were not depending on k anymore, but on i for the second picture and l for the third. Once understood, the method is the same unless that the k loop is added and so we have to use $+=$ in order to sum the elements. 
 
 
 Once working for the three pictures, we put conditions on the click event to calculate the right transfert an change de 7 on the number of rows - 1 of the list. 
 
 \subsection{Saving the clicked points}
-Enregistrement des points:
-    - D’abord, des listes de 7 points, au clic, le premier point est remplacé : nul
-    - liste de 8 points : le 8ème point est celui calculé par le transfert (dans list.list)
-    - listes de n points enregistrés dans list.list = mieux, mais pas bien car modifie le fichier initial
-    - list de n points enregistrés dans tmp/list.list = beaucoup plus mieux
-    - fonction permettant de faire tout ça : encore plus mieux;
+At first, the list were lists of 7 points and when clicking, the first point of the list was changed. It was a great idea. 
+Then we add an eighth point, calculated with the transfert in order to keep the list of the seven points needed to build the tensor. The problem was that we did not save all the points and we were writting in the files with std::ifstream. So we changed the saveMatrix function in order to save as many points as wanted. But it still changed the initial file. 
+We decided to save the point int tmp/list.list with a new method : " << ". A row is just added into the matrix and the file saved for each click. 
+Finally, we created a function (updateMatrix) in order to do the resizing of the matrix and the saving in a file. 
+
 \subsection{Save or load in a file}
 Sauvegarde/Chargement dans un fichier :
     - Au départ, écriture dans les fichiers initiaux : bouh pas bien

@@ -67,8 +67,6 @@ int main(int argc, char *argv[])
   imageOffset.x = images[0]->w + images[1]->w;
   SDL_BlitSurface(images[2], NULL, screen, &imageOffset);
 
-  // Save a list
-  kn::saveMatrix(list1, repository + "myList.mat");
 
   // Some colors
   Uint32 red  = 0xffff0000;

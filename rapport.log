@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.30)  2 JAN 2013 16:19
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.30)  3 JAN 2013 22:10
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -85,8 +85,11 @@ Missing character: There is no ¢ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ¢ in font cmr10!
 
-Overfull \hbox (38.16434pt too wide) in paragraph at lines 51--53
+Overfull \hbox (38.16434pt too wide) in paragraph at lines 53--55
 []\OT1/cmr/m/n/10 A[4p+2i+l, 9k+3i+l]= $\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 x[
 ]x[]x[]$ 
  []
@@ -95,7 +98,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
 
-Overfull \hbox (31.1921pt too wide) in paragraph at lines 53--55
+Overfull \hbox (31.1921pt too wide) in paragraph at lines 55--57
 []\OT1/cmr/m/n/10 A[4p+2i+l, 9k+3i+2]= $\OML/cmm/m/it/10 x[]x[]x[]$ 
  []
 
@@ -103,7 +106,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
 
-Overfull \hbox (26.4519pt too wide) in paragraph at lines 55--57
+Overfull \hbox (26.4519pt too wide) in paragraph at lines 57--59
 []\OT1/cmr/m/n/10 A[4p+2i+l, 9k+6+l]= $\OML/cmm/m/it/10 x[]x[]x[]$ 
  []
 
@@ -111,7 +114,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
 
-Overfull \hbox (22.25745pt too wide) in paragraph at lines 57--58
+Overfull \hbox (22.25745pt too wide) in paragraph at lines 59--60
 []\OT1/cmr/m/n/10 A[4p+2i+l, 9k+8]= $\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 x[]x[
 ]x[]$ 
  []
@@ -124,40 +127,27 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
 
-Overfull \hbox (11.58955pt too wide) in paragraph at lines 91--93
-\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2[]7\OML/cmm/m/it/10 ; i\OT1/cmr/m/n/10 )\
-OML/cmm/m/it/10 list\OT1/cmr/m/n/10 3(7\OML/cmm/m/it/10 ; j\OT1/cmr/m/n/10 )\OM
-L/cmm/m/it/10 T[] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 3(7\OM
-L/cmm/m/it/10 ; j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[]$ 
+Overfull \hbox (44.05418pt too wide) in paragraph at lines 91--93
+[]\OT1/cmr/m/n/10 B[2i +j, 0]= $\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML/cm
+m/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cm
+m/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2[]7\OM
+L/cmm/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 3(7\OML/
+cmm/m/it/10 ; j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OT1/cmr/m/n/10 +
  []
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
 
-Overfull \hbox (11.85344pt too wide) in paragraph at lines 93--94
-\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML/cmm/m/it/10 ; i\OT1/cmr/m/n/10 )\O
-ML/cmm/m/it/10 list\OT1/cmr/m/n/10 3(7\OML/cmm/m/it/10 ; j\OT1/cmr/m/n/10 )\OML
-/cmm/m/it/10 T[] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 3(7\OML
-/cmm/m/it/10 ; j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[]$ 
+Overfull \hbox (44.31807pt too wide) in paragraph at lines 93--94
+[]\OT1/cmr/m/n/10 B[2i +j, 1]= $\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML/cm
+m/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cm
+m/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML
+/cmm/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 3(7\OML/c
+mm/m/it/10 ; j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OT1/cmr/m/n/10 +
  []
 
 [3]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no © in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no ¨ in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no © in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no © in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no © in font cmr10!
-Missing character: There is no Ã in font cmr10!
-Missing character: There is no § in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
 Missing character: There is no Ã in font cmr10!
@@ -177,7 +167,7 @@ Here is how much of TeX's memory you used:
  3504 multiletter control sequences out of 15000+50000
  8501 words of font info for 30 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 23i,6n,18p,228b,289s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 23i,6n,18p,373b,336s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share
@@ -188,7 +178,7 @@ msfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
 mr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></us
 r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
 mf-texlive/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
-Output written on rapport.pdf (5 pages, 128911 bytes).
+Output written on rapport.pdf (5 pages, 128658 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
