@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.30)  4 JAN 2013 19:27
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.26)  4 JAN 2013 22:19
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -48,41 +48,77 @@ File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
+)
+(/usr/share/texmf-texlive/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2005/10/04 v3.9 algorithms environments
+\c@AlgoLine=\count89
+
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texmf-texlive/tex/latex/tools/xspace.sty
+Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
+)
+********************************************************
+Package `algorithm2e' Release 3.9 -- october 04 2005 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (fiorio@lirmm.fr)
+********************************************************
+\skiptotal=\skip43
+\skiprule=\skip44
+\skiphlne=\skip45
+\skiptext=\skip46
+\skiplength=\skip47
+\algomargin=\skip48
+\skipalgocfslide=\skip49
+\algowidth=\dimen105
+\inoutsize=\dimen106
+\inoutline=\dimen107
+\algocf@inoutbox=\box26
+\algocf@inputbox=\box27
+\AlCapSkip=\skip50
+\AlCapHSkip=\skip51
+\algocf@capbox=\box28
+\c@algocfline=\count90
+\c@algocf=\count91
+\algocf@algoframe=\box29
+\algocf@algobox=\box30
 ) (./rapport.aux)
 \openout1 = `rapport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-
-(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+ (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count89
-\scratchdimen=\dimen105
-\scratchbox=\box26
-\nofMPsegments=\count90
-\nofMParguments=\count91
+\scratchcounter=\count92
+\scratchdimen=\dimen108
+\scratchbox=\box31
+\nofMPsegments=\count93
+\nofMParguments=\count94
 \everyMPshowfont=\toks15
-\MPscratchCnt=\count92
-\MPscratchDim=\dimen106
-\MPnumerator=\count93
+\MPscratchCnt=\count95
+\MPscratchDim=\dimen109
+\MPnumerator=\count96
 \everyMPtoPDFconversion=\toks16
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 7.
+(Font)              <12> on input line 8.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 7.
+(Font)              <8> on input line 8.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 7.
+(Font)              <6> on input line 8.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./rapport.toc
@@ -122,108 +158,49 @@ Missing character: There is no ¢ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
- [2] [3]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (38.16434pt too wide) in paragraph at lines 108--110
-[]\OT1/cmr/m/n/10 A[4p+2i+l, 9k+3i+l]= $\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 x[
-]x[]x[]$ 
+ [2]
+Underfull \hbox (badness 10000) detected at line 120
+[][]
  []
 
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (31.1921pt too wide) in paragraph at lines 110--112
-[]\OT1/cmr/m/n/10 A[4p+2i+l, 9k+3i+2]= $\OML/cmm/m/it/10 x[]x[]x[]$ 
- []
-
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (26.4519pt too wide) in paragraph at lines 112--114
-[]\OT1/cmr/m/n/10 A[4p+2i+l, 9k+6+l]= $\OML/cmm/m/it/10 x[]x[]x[]$ 
- []
-
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (22.25745pt too wide) in paragraph at lines 114--115
-[]\OT1/cmr/m/n/10 A[4p+2i+l, 9k+8]= $\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 x[]x[
-]x[]$ 
- []
-
-[4]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (44.05418pt too wide) in paragraph at lines 178--180
-[]\OT1/cmr/m/n/10 B[2i +j, 0]= $\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML/cm
-m/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cm
-m/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2[]7\OM
-L/cmm/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 3(7\OML/
-cmm/m/it/10 ; j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OT1/cmr/m/n/10 +
- []
-
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (44.31807pt too wide) in paragraph at lines 180--181
-[]\OT1/cmr/m/n/10 B[2i +j, 1]= $\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML/cm
-m/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cm
-m/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML
-/cmm/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 3(7\OML/c
-mm/m/it/10 ; j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OT1/cmr/m/n/10 +
+[3] [4]
+Underfull \hbox (badness 10000) detected at line 177
+[][]
  []
 
 
-Overfull \hbox (51.4824pt too wide) in paragraph at lines 212--217
-\OT1/cmr/m/n/10 1,j)*tensor(2,2,k)); b(2*i + j) += list1(list1.rows()-1,k)*(-li
-st3(list1.rows()-1,j)*tensor(i,2,k)
+Underfull \hbox (badness 10000) detected at line 216
+[][]
  []
 
-[5] [6] <defaut.png, id=36, 1205.50375pt x 331.2375pt>
-File: defaut.png Graphic file (type png)
- <use defaut.png>
-Overfull \hbox (16.65392pt too wide) in paragraph at lines 279--280
-[][] 
+[5]
+Underfull \hbox (badness 10000) detected at line 252
+[][]
  []
 
-[7 <./defaut.png (PNG copy)>] [8] [9] (./rapport.aux) ) 
+[6] [7] [8] [9] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 943 strings out of 495061
- 11641 string characters out of 1182620
- 66888 words of memory out of 3000000
- 4163 multiletter control sequences out of 15000+50000
+ 1953 strings out of 495061
+ 24333 string characters out of 1182620
+ 106943 words of memory out of 3000000
+ 5164 multiletter control sequences out of 15000+50000
  8847 words of font info for 31 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 25i,6n,19p,432b,328s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texliv
-e/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/typ
-e1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/a
-msfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
-cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
-nts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
-5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on rapport.pdf (10 pages, 549687 bytes).
+ 25i,21n,21p,432b,357s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
+cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/am
+sfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
+r7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texm
+f-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on rapport.pdf (10 pages, 161050 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
+ 83 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
