@@ -269,4 +269,11 @@ All the files are saved with the format ask in the subject (row and col at the b
 \subsubsection{Loading}
 The lists are loaded at the beginning of the program, according to the options that the user choose. In order to manage the empty list or the list containing a row or column equal to zero, we modified the function loadMatrix() and readMatrixHeader() in mathIO. 
 
+\subsection{launch the program with arguments}
+We have done a program which can be launched with or without arguments. When the program is launched, there is a test that search if there is some arguments, and how many. With argc, we have the number of arguments written in the command, and with argv[i], we can associate the argument i to a fonction.
+Be careful to not forget that when we wrote for example ./bin/trifocal, it counts like an arguments.
+When the user don't give arguments, the default program is executed. It's a programme with the three default images, and the tree default lists with already the seven points in it.
+If the user wants, he can give three more arguments, which are the three images he wants to load. If he loads some images, there will be no list with points, there will be three empty lists.
+If the user wants to have his own images and lists of points, he can give six arguments, first the three images, then the three lists. 
+The user can specify the path of the repository he wants to the list will be saved, when he gives some arguments. 
 \end{document}
