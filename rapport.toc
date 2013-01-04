@@ -5,7 +5,7 @@
 \contentsline {subsubsection}{Build A}{3}
 \contentsline {subsubsection}{Calculate T}{4}
 \contentsline {subsection}{\numberline {0.3.2}Transfert}{4}
-\contentsline {subsubsection}{Transfert on the first picture}{4}
-\contentsline {subsubsection}{Transfert on the second and third picture}{5}
-\contentsline {subsection}{\numberline {0.3.3}Saving the clicked points}{5}
-\contentsline {subsection}{\numberline {0.3.4}Save or load in a file}{5}
+\contentsline {subsubsection}{Transfert on the first image}{5}
+\contentsline {subsubsection}{Transfert on the second and third images}{5}
+\contentsline {subsection}{\numberline {0.3.3}Saving the clicked points}{6}
+\contentsline {subsection}{\numberline {0.3.4}Save or load in a file}{6}

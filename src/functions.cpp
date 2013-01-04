@@ -173,11 +173,10 @@ void firstTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::Matri
         std::cout << "Transfert on the first picture" <<std::endl;
         for(int i = 0; i<2; ++i) {
             for(int j = 0; j<2; ++j) {
-                //for(int k = 0; k<3; ++k) {
-                    B(2*i + j, 0) = list2(list2.rows()-1,i)*tensor(2,j,0) - tensor(i,j,0) - list2(list2.rows()-1,i)*list3(list2.rows()-1,j)*tensor(2,2,0) + list3(list2.rows()-1,j)*tensor(i,2,0);
-                    B(2*i + j, 1) = list2(list2.rows()-1,i)*tensor(2,j,1) - tensor(i,j,1) - list2(list2.rows()-1,i)*list3(list2.rows()-1,j)*tensor(2,2,1) + list3(list2.rows()-1,j)*tensor(i,2,1);
+                for(int k = 0; k<2; ++k) {
+                    B(2*i + j, k) = list2(list2.rows()-1,i)*tensor(2,j,k) - tensor(i,j,k) - list2(list2.rows()-1,i)*list3(list2.rows()-1,j)*tensor(2,2,k) + list3(list2.rows()-1,j)*tensor(i,2,k);
                     b(2*i + j) = - (list2(list2.rows()-1,i)*tensor(2,j,2) - tensor(i,j,2) - list2(list2.rows()-1,i)*list3(list2.rows()-1,j)*tensor(2,2,2) + list3(list2.rows()-1,j)*tensor(i,2,2));
-                //}
+                }
             }
         }           
 
