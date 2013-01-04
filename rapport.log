@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.30)  4 JAN 2013 14:42
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.30)  4 JAN 2013 14:52
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -127,45 +127,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
 
-Overfull \hbox (38.16434pt too wide) in paragraph at lines 151--153
-[]\OT1/cmr/m/n/10 A[4p+2i+l, 9k+3i+l]= $\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 x[
-]x[]x[]$ 
- []
-
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (31.1921pt too wide) in paragraph at lines 153--155
-[]\OT1/cmr/m/n/10 A[4p+2i+l, 9k+3i+2]= $\OML/cmm/m/it/10 x[]x[]x[]$ 
- []
-
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (26.4519pt too wide) in paragraph at lines 155--157
-[]\OT1/cmr/m/n/10 A[4p+2i+l, 9k+6+l]= $\OML/cmm/m/it/10 x[]x[]x[]$ 
- []
-
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (22.25745pt too wide) in paragraph at lines 157--158
-[]\OT1/cmr/m/n/10 A[4p+2i+l, 9k+8]= $\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 x[]x[
-]x[]$ 
- []
-
-[4]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ¢ in font cmr10!
-
-Overfull \hbox (44.05418pt too wide) in paragraph at lines 189--191
+Overfull \hbox (44.05418pt too wide) in paragraph at lines 154--156
 []\OT1/cmr/m/n/10 B[2i +j, 0]= $\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML/cm
 m/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cm
 m/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2[]7\OM
@@ -177,7 +139,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ¢ in font cmr10!
 
-Overfull \hbox (44.31807pt too wide) in paragraph at lines 191--192
+Overfull \hbox (44.31807pt too wide) in paragraph at lines 156--157
 []\OT1/cmr/m/n/10 B[2i +j, 1]= $\OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML/cm
 m/m/it/10 ; i\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cm
 m/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML
@@ -185,7 +147,7 @@ m/m/it/10 T[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 list\OT1/cmr/m/n/10 2(7\OML
 mm/m/it/10 ; j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 T[] \OT1/cmr/m/n/10 +
  []
 
-[5]
+[4]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
 Missing character: There is no Ã in font cmr10!
@@ -197,7 +159,7 @@ Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¹ in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
- [6] (./rapport.aux) ) 
+ [5] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
  257 strings out of 495061
  2746 string characters out of 1182620
@@ -217,9 +179,9 @@ mr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></us
 r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
 mf-texlive/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-texlive/f
 onts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on rapport.pdf (7 pages, 147064 bytes).
+Output written on rapport.pdf (6 pages, 146705 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
+ 69 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
