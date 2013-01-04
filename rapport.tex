@@ -240,6 +240,16 @@ $b^{il} = x_{p}^{k}(x_{p}^{'i}T_{k}^{3l} - T_{k}^{il})$
 \subsubsection{WE HAVE TO FIND A NAME}
 Once the transfert working for three pictures, we had to put conditions on the click event to calculate the right transfert, depending on the two first points clicked.  
 
+Here is the pseudocode : 
+for(int i = 0; i<2; ++i) {
+              for(int j = 0; j<2; ++j) {
+                for(int k = 0; k<3; ++k) {
+                  B(2*i + j, j) +=  list1(list1.rows()-1,k)*(tensor(i,2,k) - list2(list1.rows()-1,i)*tensor(2,2,k));
+                  b(2*i + j) += list1(list1.rows()-1,k)*(-list2(list1.rows()-1,i)*tensor(2,j,k) + tensor(i,j,k));
+
+                }
+              }
+            } 
 \subsection{Saving the clicked points}
 At first, the list were lists of 7 points and when clicking, the first point of the list was changed. It was a great idea. 
 Then we add an eighth point, calculated with the transfert in order to keep the list of the seven points needed to build the tensor. The problem was that we did not save all the points and we were writting in the files with std::ifstream. So we changed the saveMatrix function in order to save as many points as wanted. But it still changed the initial file. 
