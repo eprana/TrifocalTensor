@@ -1,5 +1,6 @@
 \documentclass{report}
 
+\usepackage{algorithm2e}
 
 \begin{document}
 \title{Trifocal tensor}
@@ -97,7 +98,7 @@ The issue is now to fill the A matrix in the program. The rows are depending on 
 Initialize A to 0
 \begin{algorithm}
 \SetLine
-\caption{Fillfising the matrix A}
+\caption{Fill the matrix A}
 \SetLine
 \For {p from 0 to 6}{
 	\For{i from 0 to 1}{
@@ -169,11 +170,11 @@ $b^{il} = x_{p}^{'i}T_{3}^{3l} - T_{3}^{il} - x_{p}^{'i}x_{p}^{''l}T_{3}^{33} + 
 Here is the pseudocode to build B and b for the first transfert : 
 \begin{algorithm}
 \SetLine
-\caption{Building B an b}
+\caption{Build B and b}
 \SetLine
 \For {i from 0 to 1}{
 	\For{l from 0 to 1}{	 
-		B[2i +j, 0]= $list2(7,i)T_{2}^{j0} - T_{i}^{j0} - list2_(7,i)list3(7,j)T_{2}^{20} + list3(7,j)T_{i}^{20}$
+		B[2i +j, 0]= $list2(7,i)T_{2}^{j0} - T_{i}^{j0} - list2(7,i)list3(7,j)T_{2}^{20} + list3(7,j)T_{i}^{20}$
 
 		B[2i +j, 1]= $list2(7,i)T_{2}^{j1} - T_{i}^{j1} - list2(7,i)list3(7,j)T_{2}^{21} + list3(7,j)T_{i}^{21}$
 
@@ -205,15 +206,23 @@ $b^{il} = x_{p}^{k}(x_{p}^{''l}T_{k}^{i3} - T_{k}^{il})$
 
 Since there is the $x_{p}^{k}$ element, we need to have a sum in the loop. Here is the pseudocode:
 
-for(int i = 0; i<2; ++i) {
-              for(int j = 0; j<2; ++j) {
-                for(int k = 0; k<3; ++k) {
-                  B(2*i + j, i) +=  list1(list1.rows()-1,k)*  (tensor(2,j,k) - list3(list1.rows()-1,j)*tensor(2,2,k));
-                  b(2*i + j) += list1(list1.rows()-1,k)*(-list3(list1.rows()-1,j)*tensor(i,2,k) + tensor(i,j,k));
+\begin{algorithm}
+\SetLine
+\caption{transfert sur le 2eme image}
+\SetLine
+\For {i from 0 to 1}{
+	\For{j from 0 to 1}{
+		\For{k from 0 to 2}	{ 
+		B[2*i + j, i] +=  $list1(list1.rows()-1,k)*  (T_{2}^{jk} - list3(list1.rows()-1,j)*T_{2}^{2k})$
+        b[2*i + j] += $list1(list1.rows()-1,k)*(-list3(list1.rows()-1,j)*T_{i}^{2k} + T_{i}^{jk})$
 
-                }
-              }
-            }  
+		increment k of 1
+		}
+		increment j of 1
+	}
+	increment i of 1
+}
+\end{algorithm}  
 
 We apply the SVD with the method solve(b) on the B matrix in order to get x. 
 
@@ -237,15 +246,23 @@ $b^{il} = x_{p}^{k}(x_{p}^{'i}T_{k}^{3l} - T_{k}^{il})$
 Once the transfert working for three pictures, we had to put conditions on the click event to calculate the right transfert, depending on the two first points clicked.  
 
 Here is the pseudocode : 
-for(int i = 0; i<2; ++i) {
-              for(int j = 0; j<2; ++j) {
-                for(int k = 0; k<3; ++k) {
-                  B(2*i + j, j) +=  list1(list1.rows()-1,k)*(tensor(i,2,k) - list2(list1.rows()-1,i)*tensor(2,2,k));
-                  b(2*i + j) += list1(list1.rows()-1,k)*(-list2(list1.rows()-1,i)*tensor(2,j,k) + tensor(i,j,k));
+\begin{algorithm}
+\SetLine
+\caption{transfert sur la 3eme image}
+\SetLine
+\For {i from 0 to 1}{
+	\For{j from 0 to 1}{
+		\For{k from 0 to 2}	{ 
+		B[2*i + j, j] +=  $list1(list1.rows()-1,k)*T_{i}^{2k} - list2(list1.rows()-1,i)*T_{2}^{2k})$
+        b[2*i + j] += $list1(list1.rows()-1,k)*(-list2(list1.rows()-1,i)*T_{2}^{jk} + T_{i}^{jk})$
 
-                }
-              }
-            } 
+		increment k of 1
+		}
+		increment j of 1
+	}
+	increment i of 1
+}
+\end{algorithm}
 \subsection{Saving the clicked points}
 At first, the list were lists of 7 points and when clicking, the first point of the list was changed. It was a great idea. 
 Then we add an eighth point, calculated with the transfert in order to keep the list of the seven points needed to build the tensor. The problem was that we did not save all the points and we were writting in the files with std::ifstream. So we changed the saveMatrix function in order to save as many points as wanted. But it still changed the initial file. 
