@@ -18,7 +18,7 @@ void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std:
 }
 
 bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, std::string& repository){
-
+  std::cout << "read arguments " << std::endl;
   // English help
   if( (argc == 2) && (strcmp("-h",argv[1]) == 0)) {
     std::cout << "TRIFOCAL TENSOR" << std::endl;
