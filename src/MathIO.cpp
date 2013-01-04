@@ -156,6 +156,10 @@ namespace kn {
 		  }
 		  column = (unsigned int) value;
 
+      // If no column
+      if(col == 0) {
+        return false;
+      }
 	  // read comments
 	  while(skipComments(matrixFile) || skipEmptyLines(matrixFile));
 
