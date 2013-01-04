@@ -18,7 +18,6 @@ void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std:
 }
 
 bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, std::string& repository){
-  std::cout << "read arguments " << std::endl;
   // English help
   if( (argc == 2) && (strcmp("-h",argv[1]) == 0)) {
     std::cout << "TRIFOCAL TENSOR" << std::endl;
@@ -44,7 +43,8 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     images[2] = IMG_Load("input/image3.jpg");
 
     if(images[0] == 0 || images[1] == 0 || images[2] == 0){
-      std::cerr << "error loading images" << std::endl;
+      std::cerr << "Error loading images" << std::endl;
+      return EXIT_FAILURE;
     }
 
     kn::loadMatrix(list1,"input/list1.list");
@@ -61,7 +61,8 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     images[2] = IMG_Load(argv[3]);
 
     if(images[0] == 0 || images[1] == 0 || images[2] == 0){
-      std::cerr << "error loading images" << std::endl;
+      std::cerr << "Error loading images" << std::endl;
+      return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;
@@ -76,7 +77,8 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     images[2] = IMG_Load(argv[3]);
 
     if(images[0] == 0 || images[1] == 0 || images[2] == 0){
-      std::cerr << "error loading images" << std::endl;
+      std::cerr << "Error loading images" << std::endl;
+      return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;
@@ -90,7 +92,8 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     images[2] = IMG_Load(argv[3]);
 
     if(images[0] == 0 || images[1] == 0 || images[2] == 0){
-      std::cerr << "error loading images" << std::endl;
+      std::cerr << "Error loading images" << std::endl;
+      return EXIT_FAILURE;
     }
 
     kn::loadMatrix(list1,argv[4]);
@@ -109,7 +112,8 @@ bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd&
     images[2] = IMG_Load(argv[3]);
 
     if(images[0] == 0 || images[1] == 0 || images[2] == 0){
-      std::cerr << "error loading images" << std::endl;
+      std::cerr << "Error loading images" << std::endl;
+      return EXIT_FAILURE;
     }
 
     kn::loadMatrix(list1,argv[4]);
@@ -140,9 +144,8 @@ void calculateTensor(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::Matr
           }
         }
       } 
-    }
 
-    // Apply the SVD
+      // Apply the SVD
     Eigen::JacobiSVD<MatrixXd> jacobiA;
     jacobiA.compute(A, ComputeThinU | ComputeThinV);
     MatrixXd V = jacobiA.matrixV();
@@ -161,9 +164,11 @@ void calculateTensor(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::Matr
         }
       }
     } 
+  }
+    
 }
 
-void firstTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor) {
+void firstTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor, std::string repository) {
     MatrixXd B = MatrixXd::Zero(4,2);
     VectorXd x = VectorXd::Zero(2);
     VectorXd b = VectorXd::Zero(4);
@@ -186,13 +191,13 @@ void firstTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::Matri
         x = jacobiB.solve(b);
 
         // Add the point to list1
-        updateMatrix( list1, x(0), x(1), 1.0, "/tmp/myList1.mat");
+        updateMatrix( list1, x(0), x(1), 1.0, repository + "/myList1.mat");
     }    
 }
 
 
 
-void secondTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor) {
+void secondTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor, std::string repository) {
     MatrixXd B = MatrixXd::Zero(4,2);
     VectorXd x = VectorXd::Zero(2);
     VectorXd b = VectorXd::Zero(4);
@@ -211,29 +216,24 @@ void secondTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::Matr
               }
             }  
 
-              kn::saveMatrix(B, "input/B.list");
-
             // Apply the SVD
             Eigen::JacobiSVD<MatrixXd> jacobiB;
             jacobiB.compute(B, ComputeThinU | ComputeThinV);
             x = jacobiB.solve(b);
 
             // Add the point to list2
-            std::cout << "Adding point the list2" << std::endl;
-            updateMatrix( list2, x(0), x(1), 1.0, "/tmp/myList2.mat");
+            updateMatrix( list2, x(0), x(1), 1.0, repository + "/myList2.mat");
 
           }
 }
 
-void thirdTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor) {
+void thirdTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor, std::string repository) {
     MatrixXd B = MatrixXd::Zero(4,2);
     VectorXd x = VectorXd::Zero(2);
     VectorXd b = VectorXd::Zero(4);
 
 // Calculation of the matrix B in Bx = b for the transfert on the third images
           if( (list1.rows() > 7 && list2.rows() > 7 ) && (list1.rows() == list2.rows() && list3.rows() == list2.rows()-1 )) {
-            std::cout << "Calculation of B and b" << std::endl;
-            std::cout << "Transfert on the third picture" <<std::endl;
 
             B = MatrixXd::Zero(4,2);
             b = VectorXd::Zero(4);
@@ -247,7 +247,6 @@ void thirdTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::Matri
                 }
               }
             }  
-            kn::saveMatrix(B, "input/B.list"); 
 
          // Apply the SVD
           Eigen::JacobiSVD<MatrixXd> jacobiB;
@@ -255,7 +254,7 @@ void thirdTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::Matri
           x = jacobiB.solve(b);
 
           // Add the point to list3
-          updateMatrix( list3, x(0), x(1), 1.0, "/tmp/myList3.mat");
+          updateMatrix( list3, x(0), x(1), 1.0, repository + "/myList3.mat");
         }
 }
 

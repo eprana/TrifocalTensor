@@ -157,7 +157,7 @@ namespace kn {
 		  column = (unsigned int) value;
 
       // If no column
-      if(col == 0) {
+      if(column == 0) {
         return false;
       }
 	  // read comments

@@ -54,7 +54,7 @@ namespace kn {
     // Open the file
     std::ifstream matrixFile(fileName.c_str());
     if(!matrixFile.is_open()){
-      std::cerr << "error opening file : " << fileName << std::endl;
+      std::cerr << "Error opening file : " << fileName << std::endl;
       exit(0);				
     }
 
@@ -69,7 +69,7 @@ namespace kn {
       unsigned int row    = 0;
       unsigned int column = 0;
       bool header = readMatrixHeader(matrixFile,row,column);
-      std::cout << header << std::endl;
+      //std::cout << header << std::endl;
 
       // Read the data
       if(header) readMatrixFromHeader(M,matrixFile,row,column);
