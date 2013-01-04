@@ -8,6 +8,8 @@
 \contentsline {subsubsection}{Transfert on the first image}{5}
 \contentsline {subsubsection}{Transfert on the second image}{5}
 \contentsline {subsubsection}{Transfert on the third image}{6}
-\contentsline {subsubsection}{WE HAVE TO FIND A NAME}{6}
+\contentsline {subsubsection}{Use the right transfert}{6}
 \contentsline {subsection}{\numberline {0.3.3}Saving the clicked points}{6}
-\contentsline {subsection}{\numberline {0.3.4}Save or load in a file}{7}
+\contentsline {subsection}{\numberline {0.3.4}Save or load a list in a file}{7}
+\contentsline {subsubsection}{Saving}{7}
+\contentsline {subsubsection}{Loading}{7}

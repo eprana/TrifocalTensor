@@ -1,6 +1,5 @@
 \documentclass{report}
 
-\usepackage{algorithm2e}
 
 \begin{document}
 \title{Trifocal tensor}
@@ -96,35 +95,37 @@ $Ap_{k}^{i3} = x_{p}^{k}x_{p}^{'3}x_{p}^{''l}$
 The issue is now to fill the A matrix in the program. The rows are depending on p, i and l and the columns on k, i and l. Here is the pseudocode to fill the matrix A. 
 
 Initialize A to 0
-\begin{algorithm}
-\SetLine
-\caption{Fill the matrix A}
-\SetLine
-\For {p from 0 to 6}{
-	\For{i from 0 to 1}{
-		\For{l from 0 to 1}{
-			\For {k from 0 to 2}{
- 
-			A[4p+2i+l, 9k+3i+l]= $-x_{p}^{k}x_{p}^{'3}x_{p}^{''3}$
+\\FOR p from 0 to 6
+	\begin{verse}
+	FOR i from 0 to 1
+		\begin{verse}
+		FOR l from 0 to 1
+			\begin{verse}
+			FOR k from 0 to 2
+\begin{verse}
+\begin{list}{•}{•}
+\item 
+A[4p+2i+l, 9k+3i+l]= $-x_{p}^{k}x_{p}^{'3}x_{p}^{''3}$
+\item 
+A[4p+2i+l, 9k+3i+2]= $x_{p}^{k}x_{p}^{'3}x_{p}^{''l}$
+\item 
+A[4p+2i+l, 9k+6+l]=  $x_{p}^{k}x_{p}^{'i}x_{p}^{''3}$
+\item 
+A[4p+2i+l, 9k+8]=    $-x_{p}^{k}x_{p}^{'i}x_{p}^{''l}$
+\end{list}
 
-			A[4p+2i+l, 9k+3i+2]= $x_{p}^{k}x_{p}^{'3}x_{p}^{''l}$
-
-			A[4p+2i+l, 9k+6+l]=  $x_{p}^{k}x_{p}^{'i}x_{p}^{''3}$
-
-			A[4p+2i+l, 9k+8]=    $-x_{p}^{k}x_{p}^{'i}x_{p}^{''l}$
-			
-			increment k of 1
-			}
-			
-			increment l of 1
-		} 
-		
-		increment i of 1
-	}
-	
-	increment p of 1
-}
-\end{algorithm}
+increment k of 1
+\end{verse}
+				increment l of 1
+			END FOR
+			\end{verse}
+			increment i of 1		
+		END FOR
+		\end{verse}	
+	END FOR
+	\end{verse}
+increment p of 1 
+\\END FOR
 \subsubsection{Calculate T}
 Once we have the A matrix, we need to decompose it in $A=UDV^{T}$ with the SVD of the Eigen Library. The t vector is the last column of the V matrix. We can easily pick it up. 
 We don't forget to put the element of t in the real tensor T with the right loops: 
@@ -168,22 +169,24 @@ $b^{il} = x_{p}^{'i}T_{3}^{3l} - T_{3}^{il} - x_{p}^{'i}x_{p}^{''l}T_{3}^{33} + 
 
 
 Here is the pseudocode to build B and b for the first transfert : 
-\begin{algorithm}
-\SetLine
-\caption{Build B and b}
-\SetLine
-\For {i from 0 to 1}{
-	\For{l from 0 to 1}{	 
-		B[2i +j, 0]= $list2(7,i)T_{2}^{j0} - T_{i}^{j0} - list2(7,i)list3(7,j)T_{2}^{20} + list3(7,j)T_{i}^{20}$
+\\FOR i from 0 to 1
+		\begin{verse}
+		FOR l from 0 to 1
+\begin{verse}
+\begin{list}{•}{•}
+\item 
+B[2i +j, 0]= $list2(7,i)T_{2}^{j0} - T_{i}^{j0} - list2_(7,i)list3(7,j)T_{2}^{20} + list3(7,j)T_{i}^{20}$
+\item 
+B[2i +j, 1]= $list2(7,i)T_{2}^{j1} - T_{i}^{j1} - list2(7,i)list3(7,j)T_{2}^{21} + list3(7,j)T_{i}^{21}$
+\end{list}
 
-		B[2i +j, 1]= $list2(7,i)T_{2}^{j1} - T_{i}^{j1} - list2(7,i)list3(7,j)T_{2}^{21} + list3(7,j)T_{i}^{21}$
 
-		increment l of 1
-		
-	}
-	increment i of 1
-}
-\end{algorithm}
+\end{verse}
+				increment l of 1			
+		\\END FOR
+		\end{verse}	
+		increment i of 1
+	\\END FOR
 
 This time, we applied the SVD with the method solve(b) on the B matrix in order to have x. 
 
@@ -206,23 +209,15 @@ $b^{il} = x_{p}^{k}(x_{p}^{''l}T_{k}^{i3} - T_{k}^{il})$
 
 Since there is the $x_{p}^{k}$ element, we need to have a sum in the loop. Here is the pseudocode:
 
-\begin{algorithm}
-\SetLine
-\caption{transfert sur le 2eme image}
-\SetLine
-\For {i from 0 to 1}{
-	\For{j from 0 to 1}{
-		\For{k from 0 to 2}	{ 
-		B[2*i + j, i] +=  $list1(list1.rows()-1,k)*  (T_{2}^{jk} - list3(list1.rows()-1,j)*T_{2}^{2k})$
-        b[2*i + j] += $list1(list1.rows()-1,k)*(-list3(list1.rows()-1,j)*T_{i}^{2k} + T_{i}^{jk})$
+for(int i = 0; i<2; ++i) {
+              for(int j = 0; j<2; ++j) {
+                for(int k = 0; k<3; ++k) {
+                  B(2*i + j, i) +=  list1(list1.rows()-1,k)*  (tensor(2,j,k) - list3(list1.rows()-1,j)*tensor(2,2,k));
+                  b(2*i + j) += list1(list1.rows()-1,k)*(-list3(list1.rows()-1,j)*tensor(i,2,k) + tensor(i,j,k));
 
-		increment k of 1
-		}
-		increment j of 1
-	}
-	increment i of 1
-}
-\end{algorithm}  
+                }
+              }
+            }  
 
 We apply the SVD with the method solve(b) on the B matrix in order to get x. 
 
@@ -242,39 +237,36 @@ $B_{l}^{il} = x_{p}^{k}(T_{k}^{i3} - x_{p}^{'i}T_{k}^{33})$
 $b^{il} = x_{p}^{k}(x_{p}^{'i}T_{k}^{3l} - T_{k}^{il})$
 \end{center}
 
-\subsubsection{WE HAVE TO FIND A NAME}
+Here is the pseudocode : 
+for(int i = 0; i<2; ++i) {
+              for(int j = 0; j<2; ++j) {
+                for(int k = 0; k<3; ++k) {
+                  B(2*i + j, j) +=  list1(list1.rows()-1,k)*(tensor(i,2,k) - list2(list1.rows()-1,i)*tensor(2,2,k));
+                  b(2*i + j) += list1(list1.rows()-1,k)*(-list2(list1.rows()-1,i)*tensor(2,j,k) + tensor(i,j,k));
+
+                }
+              }
+            }
+
+\subsubsection{Use the right transfert}
 Once the transfert working for three pictures, we had to put conditions on the click event to calculate the right transfert, depending on the two first points clicked.  
 
-Here is the pseudocode : 
-\begin{algorithm}
-\SetLine
-\caption{transfert sur la 3eme image}
-\SetLine
-\For {i from 0 to 1}{
-	\For{j from 0 to 1}{
-		\For{k from 0 to 2}	{ 
-		B[2*i + j, j] +=  $list1(list1.rows()-1,k)*T_{i}^{2k} - list2(list1.rows()-1,i)*T_{2}^{2k})$
-        b[2*i + j] += $list1(list1.rows()-1,k)*(-list2(list1.rows()-1,i)*T_{2}^{jk} + T_{i}^{jk})$
-
-		increment k of 1
-		}
-		increment j of 1
-	}
-	increment i of 1
-}
-\end{algorithm}
+ 
 \subsection{Saving the clicked points}
-At first, the list were lists of 7 points and when clicking, the first point of the list was changed. It was a great idea. 
+At first, the list were lists of 7 points and when clicking, the first point of the list was changed. It was not a great idea. 
 Then we add an eighth point, calculated with the transfert in order to keep the list of the seven points needed to build the tensor. The problem was that we did not save all the points and we were writting in the files with std::ifstream. So we changed the saveMatrix function in order to save as many points as wanted. But it still changed the initial file. 
 We decided to save the point int tmp/list.list with a new method : " << ". A row is just added into the matrix and the file saved for each click. 
 Finally, we created a function (updateMatrix) in order to do the resizing of the matrix and the saving in a file. 
 
-\subsection{Save or load in a file}
-Sauvegarde/Chargement dans un fichier :
-    - Au départ, écriture dans les fichiers initiaux : bouh pas bien
-    - Sauvegarde dans les fichiers tmp
-    - A faire : l’utilisateur peut choisir le fichier où sont enregistrés les points
+\subsection{Save or load a list in a file}
+\subsubsection{Saving}
+At the beginning, the list of the clicked points were saved in the initial file. This was a probleme since the user may not want to modify his files. 
+So we decided to save them directly into the repository tmp/ 
+Finally, we had an option for the user. He can specify a repository when he launches the program. the list are then saved in this repository. 
 
-Format de sauvegarde : activation du header en true dans saveMatrix()
+All the files are saved with the format ask in the subject (row and col at the beginning). In order to do that, we activated the header to true in saveMatrix()in mathIO. 
+
+\subsubsection{Loading}
+The lists are loaded at the beginning of the program, according to the options that the user choose. In order to manage the empty list or the list containing a row or column equal to zero, we modified the function loadMatrix() in mathIO. 
 
 \end{document}
