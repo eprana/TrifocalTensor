@@ -131,7 +131,6 @@ namespace kn {
       * \throw MathException invalid format
       */
       bool readMatrixHeader(std::ifstream &matrixFile, unsigned int &row, unsigned int &column){
-        std::cout << "In read matrix header" << std::endl;
 
 	  // read comments
 	  while(skipComments(matrixFile) || skipEmptyLines(matrixFile));
@@ -142,6 +141,11 @@ namespace kn {
 	     return false;
 	  row = (unsigned int) value;
 
+      // If no row
+      if(row == 0) {
+        return false;
+      }
+
 	  // read comments
 	  while(skipComments(matrixFile) || skipEmptyLines(matrixFile));
 
@@ -151,13 +155,10 @@ namespace kn {
 			  exit(0);
 		  }
 		  column = (unsigned int) value;
-    if(row == 0) {
-        return false;
-    }
+
 	  // read comments
 	  while(skipComments(matrixFile) || skipEmptyLines(matrixFile));
 
-std::cout << " blaht " << std::endl;
 	  return true;
       }
 
