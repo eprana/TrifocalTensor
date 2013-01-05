@@ -20,19 +20,21 @@ void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std:
 bool readArguments(int argc, char** argv, SDL_Surface** images, Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, std::string& repository){
   // English help
   if( (argc == 2) && (strcmp("-h",argv[1]) == 0)) {
-    std::cout << "TRIFOCAL TENSOR" << std::endl;
+    std::cout << "#########################################  TRIFOCAL TENSOR  ######################################### " << std::endl;
 
     std::cout << " This logiciel enable to find a point on a given image of a 3D scene by clicking the same point on two other images of the same scene on a different angle."<< std::endl << std::endl;
-    std::cout << " In order to do that, you have to click, in the same order, on 7 similar points on the three images" << std::endl << std::endl;
-    std::cout << " Then, if you pick the point on two images, it will calculate the third one on the last image" << std::endl << std::endl << std::endl;
+    std::cout << " In order to do that, you have to click, in the same order, on 7 similar points on the three images." << std::endl << std::endl;
+    std::cout << " Then, if you pick a point on two images, it will calculate the third one on the last image." << std::endl << std::endl;
     std::cout << " By default, the lists of clicked points are saved in your tmp repository. "<< std::endl << std::endl;
 
-    std::cout << "./bin/trifocal  [OPTIONS] \t launch the program with default pictures and list of points" << std::endl << std::endl;
-    std::cout << "[image1].jpg [image2].jpg [image3].jpg : \t launch the program with the three given images" << std::endl << std::endl;
-    std::cout << "[image1].jpg [image2].jpg [image3].jpg [repository]: \t launch the program with the three given images and the path to the repository where the list of cliked points will be saved" << std::endl << std::endl;
-    std::cout << "[image1].jpg [image2].jpg [image3].jpg [list1].list [list2].list [list3].list : \t launch the program with the three given images and the list of corresponding points" << std::endl << std::endl;
-    std::cout << "[image1].jpg [image2].jpg [image3].jpg [list1].list [list2].list [list3].list [repository]: \t launch the program with the three given images and the list of corresponding points and the path to the repository where the list of cliked points will be saved" << std::endl << std::endl;
+    std::cout << "[OPTIONS] to launch the program" << std::endl << std::endl;
+    std::cout << "./bin/trifocal" << std::endl << "Launch the program with default pictures and list of points." << std::endl << std::endl;
+    std::cout << "[image1].jpg [image2].jpg [image3].jpg " << std::endl << "Launch the program with the three given images." << std::endl << std::endl;
+    std::cout << "[image1].jpg [image2].jpg [image3].jpg [repository]" << std::endl << "Launch the program with the three given images and the path to the repository where the lists of cliked points will be saved. Be careful, the path begins in the program repository. " << std::endl << std::endl;
+    std::cout << "[image1].jpg [image2].jpg [image3].jpg [list1].list [list2].list [list3].list" << std::endl << "Launch the program with the three given images and the lists of corresponding points." << std::endl << std::endl;
+    std::cout << "[image1].jpg [image2].jpg [image3].jpg [list1].list [list2].list [list3].list [repository]" << std::endl << "Launch the program with the three given images, the lists of corresponding points and the path to the repository where the lists of cliked points will be saved. Be careful, the path begins in the program repository." << std::endl << std::endl;
 
+    std::cout << "#################################################################################################### " << std::endl;
   }
 
   // If there is not at least 3 arguments, we load the default pictures and their lists
