@@ -18,6 +18,10 @@ void updateMatrix(MatrixXd &list, float newX, float newY, float newZ, const std:
 // Calculate the tensor
 void calculateTensor(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Eigen::VectorXd& t, Tensor& tensor, Eigen::MatrixXd& A);
 
+
+// Undo the last point clicked
+void undo(Eigen::MatrixXd* plist);
+
 // Transfert on the first image
 void firstTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor, std::string repository);
 

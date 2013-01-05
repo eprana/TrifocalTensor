@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
   Eigen::MatrixXd list1;
   Eigen::MatrixXd list2;
   Eigen::MatrixXd list3;
+  //Eigen::MatrixXd* lastList = NULL;
 
   // Saving repository
   std::string repository = "/tmp/";
@@ -80,26 +81,20 @@ int main(int argc, char *argv[])
 
     // Draw points on images[0]
     for(int i=0; i<list1.rows(); ++i)
-      if(list1(i,0) != 0 && list1(i,1) != 0) {
         fill_circle(screen, list1(i,0), list1(i,1), 3, red);
-      }
 
     // Draw points on images[1]
     for(int i=0; i<list2.rows(); ++i)
-      if(list2(i,0) != 0 && list2(i,1) != 0) {
        fill_circle(screen, list2(i,0)+images[0]->w, list2(i,1), 3, blue);
-      }
 
     // Draw points on images[2]
     for(int i=0; i<list3.rows(); ++i)
-      if(list3(i,0) != 0 && list3(i,1) != 0) {
         fill_circle(screen, list3(i,0)+images[0]->w+images[1]->w, list3(i,1), 3, yellow);
-      }
 
     // Display everything
     SDL_Flip(screen);
 
-    // Management of the events
+                    
     SDL_Event e;
     while(SDL_PollEvent(&e)) {
 
@@ -107,24 +102,60 @@ int main(int argc, char *argv[])
       if(e.type == SDL_MOUSEBUTTONDOWN) {
         // Left clic
         if(e.button.button == SDL_BUTTON_LEFT) {
-          if(e.button.x <= images[0]->w) {
+          //if(e.button.x <= images[0]->w) {
             updateMatrix( list1, (float)e.button.x, (float)e.button.y, 1.0, repository + "/myList1.mat");
-          }
+            //lastList = &list1;
+          //}
 
-          if(images[0]->w < e.button.x && e.button.x <= images[1]->w + images[0]->w) {
+          //if(images[0]->w < e.button.x && e.button.x <= images[1]->w + images[0]->w) {
             updateMatrix( list2, (float)e.button.x - images[0]->w, (float)e.button.y, 1.0, repository + "/myList2.mat");
-          }
+            //lastList = &list2;
+          //}
 
-          if(images[0]->w + images[1]->w < e.button.x && e.button.x <= images[2]->w + images[1]->w + images[0]->w) {
+          //if(images[0]->w + images[1]->w < e.button.x && e.button.x <= images[2]->w + images[1]->w + images[0]->w) {
             updateMatrix( list3, (float)e.button.x - images[0]->w - images[1]->w, (float)e.button.y, 1.0, repository + "/myList3.mat");
-          }
+            //lastList = &list3;
+          //}
 
-          firstTransfert(list1, list2, list3, tensor, repository);
-          secondTransfert(list1, list2, list3, tensor, repository);
-          thirdTransfert(list1, list2, list3, tensor, repository);
+          //if( (list2.rows() > 7 && list3.rows() >7) && (list2.rows()==list3.rows() && list1.rows() == list2.rows()-1 )) {
+            firstTransfert(list1, list2, list3, tensor, repository);
+            //lastList = &list1;
+          //}
+          
+           //if( (list1.rows() > 7 && list3.rows() >7) && (list1.rows()==list3.rows() && list2.rows() == list1.rows()-1 )) {
+            secondTransfert(list1, list2, list3, tensor, repository);
+            //lastList = &list2;
+           //}
+
+           //if( (list1.rows() > 7 && list2.rows() > 7 ) && (list1.rows() == list2.rows() && list3.rows() == list2.rows()-1 )) {
+            thirdTransfert(list1, list2, list3, tensor, repository);
+            //lastList = &list3;
+           //}
+          
+          
+          
    
         }
       }
+
+      // Keyboard events
+      /*if(e.type == SDL_KEYDOWN) {
+                switch(e.key.keysym.sym){
+                   
+                    case SDLK_u:
+                        std::cout << "Undo" << std::endl;
+                        undo(lastList);
+
+                    break;
+
+                    default:
+
+                    break;
+
+                }
+      }*/
+
+
       // Closing of the window
        if(e.type == SDL_QUIT) {
         done = true;

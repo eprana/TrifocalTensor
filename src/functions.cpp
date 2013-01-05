@@ -168,6 +168,20 @@ void calculateTensor(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::Matr
     
 }
 
+void undo(Eigen::MatrixXd* plist) {
+  kn::saveMatrix(*plist, "input/bouhLast.list");
+  if((*plist).rows() != 0 || (*plist).cols() != 0) {
+    Eigen::MatrixXd tmp = *plist;
+    (*plist).resize(tmp.rows() -1, tmp.cols());
+    for(int i = 0; i < tmp.rows() -1; ++i) {
+      for(int j = 0; j < tmp.cols(); ++j) {
+        (*plist)(i,j) = tmp(i,j);
+      } 
+    }
+  }
+  kn::saveMatrix(*plist, "input/bouhAfter.list");
+}
+
 void firstTransfert(Eigen::MatrixXd& list1, Eigen::MatrixXd& list2, Eigen::MatrixXd& list3, Tensor& tensor, std::string repository) {
     MatrixXd B = MatrixXd::Zero(4,2);
     VectorXd x = VectorXd::Zero(2);

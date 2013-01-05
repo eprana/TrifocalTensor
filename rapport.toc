@@ -19,5 +19,11 @@
 \contentsline {subsection}{\numberline {0.3.5}Launch the program with arguments}{6}
 \contentsline {paragraph}{•}{6}
 \contentsline {paragraph}{•}{7}
+\contentsline {paragraph}{•}{7}
+\contentsline {subsection}{\numberline {0.3.6}Undo/Redo}{7}
 \contentsline {section}{\numberline {0.4}Improvement}{7}
-\contentsline {section}{\numberline {0.5}Conclusion}{8}
+\contentsline {subsection}{\numberline {0.4.1}Resize }{7}
+\contentsline {subsection}{\numberline {0.4.2}Zoom}{8}
+\contentsline {subsection}{\numberline {0.4.3}Options}{8}
+\contentsline {subsection}{\numberline {0.4.4}Undo/Redo}{8}
+\contentsline {section}{\numberline {0.5}Conclusion}{9}

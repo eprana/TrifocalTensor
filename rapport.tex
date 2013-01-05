@@ -31,6 +31,8 @@ Calculation of a tensor : element requested, encoded and working.
 Transfert the points with the tensor : element requested, encoded and working.
 \item 
 Launch into the consol with the path of the repository in which save the lists : element not requested, encoded and working.  
+\item 
+Undo/Redo : element not requested, encoded and but not working.  
 
 \end{list}
 
@@ -298,25 +300,55 @@ When the user does not give arguments, the default program is executed. It's a p
 \begin{center}
 \begin{figure}
     \includegraphics[scale=0.4]{defaut.png}
-    \caption{La description de la figure}
-    \label{un-identifiant}
+    \caption{Program launched without arguments}
+    \label{Picture 1}
 \end{figure} 
 \end{center}
 
 \paragraph{•}
 If the user wants, he can give three more arguments, which are the three images he wants to load. If he loads some images, there will be no list with points. He has to clic the corresponding points on the three images. 
+
+
+\begin{center}
+\begin{figure}
+    \includegraphics[scale=0.334]{images.png}
+    \caption{Program launch with user's pictures}
+    \label{Picture 2}
+\end{figure} 
+\end{center}
+
+\paragraph{•}
 If the user wants to have his own images and lists of points, he can give six arguments, first the three images, then the three lists. 
 The user can also specify the path of the repository in which he wants the list to be saved, when he gives some arguments. 
 
+\subsection{Undo/Redo}
+We wanted to make undo-redo in the program because currently, if you click a wrong point, you have to start again from the beginning if you don't want to modify the files. In order to do that, we created an undo function that delete the last point. We succeed in modifying the last point clicked of the last list modified. This function is working, the point disappear of the list, but it is still displayed on the screen. 
+So we did not go further. The code is in commentary in the files. 
+
 \section{Improvement}
-This program can be improved. For example, if we load pictures too big, the program works but does not addapt the size of the images. So we can't see them on our screen and work with it. 
-Zoom to click the point more precisely
-Arrange the options method
+This program can still be improved. 
+
+\subsection{Resize }
+Currently, when we load pictures which are to big, the program the program works but does not adapt the size of the images to the size of the screen. So we can't see them on our screen and work with it. 
+We want to resize theses pictures in order to have a window contained in the screen surface. 
+
+\subsection{Zoom}
+When we don't load a list of point, launching the program, we have to click on the seven corresponding point to calculate the tensor and use the transfert. But it is difficult to click precisely. So we thought about creating a zoom with SDL rotozoom. We did not had time to implement it, but it is a way to click without to much error.
+
+\subsection{Options}
+The options in the console are working, but are not very precised. We still can work on it in order to manage all the configuration that the user may use. 
+
+\subsection{Undo/Redo}
+As the undo function is not displayed, we can improve the project with a functionnal undo/redo function. We could delete the points clicked and redo them in case of error. This function is very used in all the program and enable a better user experience. 
 
 \newpage
 \section{Conclusion}
-This project was quite absorbing since he will never be completely finished. The tricky part was to pass from mathematics to code. Using the Eigen Library, it forced us to search the functions we could use. 
+This project was quite absorbing since he will never be completely finished. Actually, the tricky part was to pass from mathematics function to code. Using the Eigen Library, it forced us to search the functions we could use in the documentation. We learn to work with code that is not ours and not explained by someone. 
 
-Very very instersting project. In english, it's better. 
+
+
+We decided to write all the project in english in order to pratice. We usually use english name for our functions so we can also write the commentaries in english. 
+
+Even if we did not success in implementing all the functions we wanted, the program is functionnal and the transferts are working. 
 
 \end{document}
