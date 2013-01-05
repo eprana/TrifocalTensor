@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.26)  4 JAN 2013 22:19
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.26)  5 JAN 2013 10:45
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -163,18 +163,23 @@ Underfull \hbox (badness 10000) detected at line 120
 [][]
  []
 
-[3] [4]
-Underfull \hbox (badness 10000) detected at line 177
+
+Underfull \hbox (badness 10000) detected at line 139
 [][]
  []
 
-
-Underfull \hbox (badness 10000) detected at line 216
+[3] [4]
+Underfull \hbox (badness 10000) detected at line 187
 [][]
  []
 
 [5]
-Underfull \hbox (badness 10000) detected at line 252
+Underfull \hbox (badness 10000) detected at line 226
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 262
 [][]
  []
 
@@ -182,7 +187,7 @@ Underfull \hbox (badness 10000) detected at line 252
 Here is how much of TeX's memory you used:
  1953 strings out of 495061
  24333 string characters out of 1182620
- 106943 words of memory out of 3000000
+ 107943 words of memory out of 3000000
  5164 multiletter control sequences out of 15000+50000
  8847 words of font info for 31 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
@@ -198,7 +203,7 @@ sfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
 r7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texm
 f-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on rapport.pdf (10 pages, 161050 bytes).
+Output written on rapport.pdf (10 pages, 163699 bytes).
 PDF statistics:
  83 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
