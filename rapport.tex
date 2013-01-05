@@ -144,7 +144,7 @@ We don't forget to put the element of $t$ in the real tensor $T$ with the right 
 \For {i from 0 to tensor.getI()}{
 	\For{j from 0 tensor.getJ()}{
 			\For{k from 0 to tensor.getK()}{
-				$tensor.setT(i,j,k, t(9*k + 3*i + j))$
+				$T(i,j,k) = t(9*k + 3*i + j))$
 				
 				increment $k$ of 1
 		}
@@ -192,9 +192,13 @@ Here is the pseudocode to build $B$ and $b$ for the first transfert :
 \SetLine
 \For {i from 0 to 1}{
 	\For{l from 0 to 1}{
-		$B[2i +j, 0]=list2(7,i)T_{2}^{j0} - T_{i}^{j0} - list2_(7,i)list3(7,j)T_{2}^{20} + list3(7,j)T_{i}^{20}$
-		
-		$B[2i +j, 1]=list2(7,i)T_{2}^{j1} - T_{i}^{j1} - list2(7,i)list3(7,j)T_{2}^{21} + list3(7,j)T_{i}^{21}$	
+		\For{k from 0 to 2}{
+
+          $ B[2*i + j, k] = x^{'i}T_{2}^{jk} - T_{i}^{jk} - x^{'i}x^{''j}T_{2}^{2k} + x^{''j}T_{i}^{2k}$
+          $ b(2*i + j) = - x^{'i}T_{2}^{j2} - T_{i}^{j2} - x^{'i})x^{'j}T_{2}^{22} + x^{''j}T_{i}^{22};$
+
+            increment $k$ of 1
+        }    
 
 		increment $l$ of 1
 	}
@@ -230,8 +234,9 @@ Since there is the $x_{p}^{k}$ element, we need to have a sum in the loop. Here 
 \For {i from 0 to 1}{
 	\For{j from 0 to 1}{
 		\For{k from 0 to 2}	{ 
-        $B[2*i + j, i] += list1(list1.rows()-1,k)*  (T_{2}^{jk} - list3(list1.rows()-1,j)*T_{2}^{2k})$
-        $b[2*i + j] += list1(list1.rows()-1,k)*(-list3(list1.rows()-1,j)*T_{i}^{2k} + T_{i}^{jk})$
+        $B[2*i + j, i] += x^{k}(T_{2}^{jk} - x^{''j}T_{2}^{2k})$
+        
+        $b[2*i + j] += x^{k}(-x^{''j}T_{i}^{2k} + T_{i}^{jk})$
 
 		increment $k$ of 1
 		}
@@ -273,8 +278,9 @@ Here is the pseudocode :
 \For {i from 0 to 1}{
 	\For{j from 0 to 1}{
 		\For{k from 0 to 2}	{ 
-		B[2*i + j, j] +=  $list1(list1.rows()-1,k)*T_{i}^{2k} - list2(list1.rows()-1,i)*T_{2}^{2k})$
-        b[2*i + j] += $list1(list1.rows()-1,k)*(-list2(list1.rows()-1,i)*T_{2}^{jk} + T_{i}^{jk})$
+		$B[2*i + j, j]$ +=  $ x^{k}T_{i}^{2k} -x^{''i}T_{2}^{2k})$
+		
+        $b[2*i + j]$ += $x^{k}(T_{i}^{jk} -x^{'i}T_{2}^{jk} )$
 
 		increment $k$ of 1
 		}

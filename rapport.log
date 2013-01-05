@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.26)  5 JAN 2013 18:13
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.30)  5 JAN 2013 19:16
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -248,19 +248,19 @@ Underfull \hbox (badness 10000) detected at line 155
  []
 
 
-Underfull \hbox (badness 10000) detected at line 203
+Underfull \hbox (badness 10000) detected at line 207
 [][]
  []
 
 [4]
-Underfull \hbox (badness 10000) detected at line 242
+Underfull \hbox (badness 10000) detected at line 247
 [][]
  []
 
 <Tenseur.png, id=29, 501.875pt x 123.46124pt>
 File: Tenseur.png Graphic file (type png)
  <use Tenseur.png> [5 <./Tenseur.png (PNG copy)>]
-Underfull \hbox (badness 10000) detected at line 285
+Underfull \hbox (badness 10000) detected at line 291
 [][]
  []
 
@@ -271,7 +271,7 @@ Missing character: There is no ¢ in font cmbx10!
  <defaut.png, id=37, 1205.50375pt x 331.2375pt>
 File: defaut.png Graphic file (type png)
  <use defaut.png>
-Overfull \hbox (10.16173pt too wide) in paragraph at lines 314--315
+Overfull \hbox (10.16173pt too wide) in paragraph at lines 320--321
 [][] 
  []
 
@@ -281,7 +281,7 @@ Missing character: There is no ¢ in font cmbx10!
 <images.png, id=38, 1443.3925pt x 388.45125pt>
 File: images.png Graphic file (type png)
  <use images.png>
-Overfull \hbox (10.06015pt too wide) in paragraph at lines 326--327
+Overfull \hbox (10.06015pt too wide) in paragraph at lines 332--333
 [][] 
  []
 
@@ -309,7 +309,7 @@ cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb
 e/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/typ
 e1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-texlive/fonts/type1/public/am
 sfonts/cm/cmti10.pfb>
-Output written on rapport.pdf (10 pages, 1201341 bytes).
+Output written on rapport.pdf (10 pages, 1199694 bytes).
 PDF statistics:
  86 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
