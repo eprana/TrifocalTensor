@@ -2,7 +2,14 @@
 \usepackage{graphicx}
 \usepackage{algorithm2e}
 \usepackage{geometry}
+\usepackage{color}
 \geometry{ hmargin=2.5cm, vmargin=2cm } 
+\definecolor{title}{rgb}{0.7,0,0}
+\definecolor{subtitle}{rgb}{0.5,0,0}
+\makeatletter\@addtoreset{section}{part}\makeatother
+\renewcommand{\thepart}{\arabic{part}}
+\renewcommand{\thesection}{\thepart.\arabic{section}}
+
 
 \begin{document}
 \title{Trifocal tensor}
@@ -12,10 +19,12 @@
 \tableofcontents
 \newpage
 
-\section{Introduction}
+\textcolor{title}{\section*{Introduction}}
+\addcontentsline{toc}{section}{Introduction} 
 The aim of this project was to create an application that enables to establish relations between three pictures. The first step consists in clicking on seven points on each picture representing a 3D scene from different point of view. After seven correspondances, the program is enabled to find the position of an element on the third image if you click on the position of the same element on the two others pictures. 
 
-\section{List of the elements}
+\textcolor{title}{\section{List of the elements}}
+\renewcommand{\thesection}{\arabic{section}}
 \begin{list}{•}{•}
 \item 
 Display the help in english with -h : element requested, encoded and working.  
@@ -36,8 +45,8 @@ Undo/Redo : element not requested, encoded and but not working.
 
 \end{list}
 
-\section{Description of the elements encoded}
-\subsection{Tensor}
+\textcolor{title}{\section{Description of the elements encoded}}
+\textcolor{subtitle}{\subsection{Tensor}}
 
 A trifocal tensor is a 3x3x3 matrix. It contains 27 elements that we need to calculate. The elements $T_{k}^{il}$ of the tensor have to validate the following expression : 
 \begin{center}
@@ -149,7 +158,7 @@ increment $i$ of 1
 
 
 
-\subsection{Transfert}
+\textcolor{subtitle}{\subsection{Transfert}}
 The transfert was a difficult part of the project. The main difficulty was to transform the equations into matrices and vectors.
 
 The equation used to transfert the points is the same than the one used for the tensor : 
@@ -280,13 +289,13 @@ Here is the pseudocode :
 Once the transfert working for three pictures, we had to put conditions on the click event to calculate the right transfert, depending on the two first points clicked.  
 
  
-\subsection{Saving the clicked points}
+\textcolor{subtitle}{\subsection{Saving the clicked points}}
 At first, the list were lists of 7 points and when clicking, the first point of the list was changed. It was not a great idea. 
 Then we add an eighth point, calculated with the transfert in order to keep the list of the seven points needed to build the tensor. The problem was that we did not save all the points and we were writting in the files with std::ifstream. So we changed the saveMatrix function in order to save as many points as wanted. But it still changed the initial file. 
 We decided to save the point int tmp/list.list with a new method : " << ". A row is just added into the matrix and the file saved for each click. 
 Finally, we created a function (updateMatrix) in order to do the resizing of the matrix and the saving in a file. 
 
-\subsection{Save or load a list in a file}
+\textcolor{subtitle}{\subsection{Save or load a list in a file}}
 \subsubsection{Saving}
 At the beginning, the list of the clicked points were saved in the initial file. This was a probleme since the user may not want to modify his files. 
 So we decided to save them directly into the repository tmp/ 
@@ -297,7 +306,7 @@ All the files are saved with the format ask in the subject (row and col at the b
 \subsubsection{Loading}
 The lists are loaded at the beginning of the program, according to the options that the user choose. In order to manage the empty list or the list containing a row or column equal to zero, we modified the function loadMatrix() and readMatrixHeader() in mathIO. 
 
-\subsection{Launch the program with arguments}
+\textcolor{subtitle}{\subsection{Launch the program with arguments}}
 We have done a program which can be launched with or without arguments. When the program is launched, there is a test that checks if there are some arguments, and how many. With $argc$, we have the number of arguments written in the command, and with $argv[i]$, we can pick up the argument to use it in a fonction for example.
 Be careful to not forget that when we wrote for example ./bin/trifocal, it counts like an argument.
 When the user does not give arguments, the default program is executed. It's a program with the three default images, and the three default lists with already the seven points in it.
@@ -325,29 +334,30 @@ If the user wants, he can give three more arguments, which are the three images 
 \paragraph{•}
 If the user wants to have his own images and lists of points, he can give six arguments, first the three images, then the three lists. 
 The user can also specify the path of the repository in which he wants the list to be saved, when he gives some arguments. 
-
-\subsection{Undo/Redo}
+\newpage
+\textcolor{subtitle}{\subsection{Undo/Redo}}
 We wanted to make undo-redo in the program because currently, if you click a wrong point, you have to start again from the beginning if you don't want to modify the files. In order to do that, we created an undo function that delete the last point. We succeed in modifying the last point clicked of the last list modified. This function is working, the point disappear of the list, but it is still displayed on the screen. 
 So we did not go further. The code is in commentary in the files. 
 
-\section{Improvement}
+\textcolor{title}{\section{Improvement}}
 This program can still be improved. 
 
-\subsection{Resize }
+\textcolor{subtitle}{\subsection{Resize }}
 Currently, when we load pictures which are to big, the program the program works but does not adapt the size of the images to the size of the screen. So we can't see them on our screen and work with it. 
 We want to resize theses pictures in order to have a window contained in the screen surface. 
 
-\subsection{Zoom}
+\textcolor{subtitle}{\subsection{Zoom}}
 When we don't load a list of point, launching the program, we have to click on the seven corresponding point to calculate the tensor and use the transfert. But it is difficult to click precisely. So we thought about creating a zoom with SDL rotozoom. We did not had time to implement it, but it is a way to click without to much error.
 
-\subsection{Options}
+\textcolor{subtitle}{\subsection{Options}}
 The options in the console are working, but are not very precised. We still can work on it in order to manage all the configuration that the user may use. 
 
-\subsection{Undo/Redo}
+\textcolor{subtitle}{\subsection{Undo/Redo}}
 As the undo function is not displayed, we can improve the project with a functionnal undo/redo function. We could delete the points clicked and redo them in case of error. This function is very used in all the program and enable a better user experience. 
 
 \newpage
-\section{Conclusion}
+\textcolor{title}{\section*{Conclusion}}
+\addcontentsline{toc}{section}{Conclusion} 
 This project was quite absorbing since he will never be completely finished. Actually, the tricky part was to pass from mathematics function to code. Using the Eigen Library, it forced us to search the functions we could use in the documentation. We learn to work with code that is not ours and not explained by someone. 
 
 
