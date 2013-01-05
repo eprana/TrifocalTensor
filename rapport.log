@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.30)  5 JAN 2013 13:17
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.12.26)  5 JAN 2013 17:38
 entering extended mode
  %&-line parsing enabled.
 **rapport.tex
@@ -224,9 +224,6 @@ Missing character: There is no ¢ in font cmr10!
 Missing character: There is no â in font cmbx10!
 Missing character: There is no € in font cmbx10!
 Missing character: There is no ¢ in font cmbx10!
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
 
 [2]
 Missing character: There is no â in font cmbx10!
@@ -252,29 +249,31 @@ Underfull \hbox (badness 10000) detected at line 235
 [][]
  []
 
-
-Underfull \hbox (badness 10000) detected at line 271
+<Tenseur.png, id=29, 501.875pt x 123.46124pt>
+File: Tenseur.png Graphic file (type png)
+ <use Tenseur.png> [5 <./Tenseur.png (PNG copy)>]
+Underfull \hbox (badness 10000) detected at line 278
 [][]
  []
 
-[5]
+[6]
 Missing character: There is no â in font cmbx10!
 Missing character: There is no € in font cmbx10!
 Missing character: There is no ¢ in font cmbx10!
- [6] <defaut.png, id=36, 1205.50375pt x 331.2375pt>
+ <defaut.png, id=37, 1205.50375pt x 331.2375pt>
 File: defaut.png Graphic file (type png)
  <use defaut.png>
-Overfull \hbox (10.16173pt too wide) in paragraph at lines 302--303
+Overfull \hbox (10.16173pt too wide) in paragraph at lines 307--308
 [][] 
  []
 
 Missing character: There is no â in font cmbx10!
 Missing character: There is no € in font cmbx10!
 Missing character: There is no ¢ in font cmbx10!
-<images.png, id=37, 1443.3925pt x 388.45125pt>
+<images.png, id=38, 1443.3925pt x 388.45125pt>
 File: images.png Graphic file (type png)
  <use images.png>
-Overfull \hbox (10.06015pt too wide) in paragraph at lines 314--315
+Overfull \hbox (10.06015pt too wide) in paragraph at lines 319--320
 [][] 
  []
 
@@ -284,10 +283,10 @@ Missing character: There is no ¢ in font cmbx10!
 [7 <./defaut.png (PNG copy)> <./images.png (PNG copy)>] [8] [9] (./rapport.aux)
  ) 
 Here is how much of TeX's memory you used:
- 2352 strings out of 495061
- 30223 string characters out of 1182620
- 115146 words of memory out of 3000000
- 5550 multiletter control sequences out of 15000+50000
+ 2358 strings out of 495061
+ 30312 string characters out of 1182620
+ 114154 words of memory out of 3000000
+ 5555 multiletter control sequences out of 15000+50000
  8847 words of font info for 31 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  25i,20n,28p,437b,353s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -302,9 +301,9 @@ cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb
 e/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/typ
 e1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-texlive/fonts/type1/public/am
 sfonts/cm/cmti10.pfb>
-Output written on rapport.pdf (10 pages, 1015906 bytes).
+Output written on rapport.pdf (10 pages, 1201050 bytes).
 PDF statistics:
- 85 PDF objects out of 1000 (max. 8388607)
+ 86 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

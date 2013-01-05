@@ -54,7 +54,7 @@ The first step to resolve the system, is to build the $A$ matrix. Let's call $Ap
 The rows of $A$ corresponds to $( Ap_{1}^{il}  Ap_{2}^{il}  Ap_{3}^{il} )$.
 For each point, there are four rows in the matrix. The first for $i=1$ and $l=1$, the second for $i=1$ and $l=2$, the third for $i=2$ and $l=1$ and the forth for $i=2$ and $l=2$.
 
-\paragraph{•}
+\newpage
 Let's take an example with the $p$ point. 
 We obtain the four following equations : 
 \begin{center}
@@ -196,7 +196,7 @@ Here is the pseudocode to build $B$ and $b$ for the first transfert :
 \end{algorithm}
 
 This time, we applied the SVD with the method solve(b) on the $B$ matrix in order to have $x$. 
-
+\newpage
 \subsubsection{Transfert on the second image}
 We take time to understand the fact that the column of the matrix $B$ were not depending on $k$ anymore, but on $i$ for the second picture and $l$ for the third. Once understood, the method is quite the same. 
 
@@ -234,6 +234,13 @@ Since there is the $x_{p}^{k}$ element, we need to have a sum in the loop. Here 
 }
 \end{algorithm}
 We apply the SVD with the method solve(b) on the $B$ matrix in order to get $x$. 
+\begin{figure}[ht]
+   \begin{center}
+	\includegraphics[width=0.8\textwidth]{Tenseur.png}
+	\caption{Transfert on the second image after clicking on the first and the third images.}
+	\label{fig:mon image}
+	\end{center}
+\end{figure}
 
 \subsubsection{Transfert on the third image}
 The method is similar to the one for the third transfert.
@@ -291,14 +298,12 @@ All the files are saved with the format ask in the subject (row and col at the b
 The lists are loaded at the beginning of the program, according to the options that the user choose. In order to manage the empty list or the list containing a row or column equal to zero, we modified the function loadMatrix() and readMatrixHeader() in mathIO. 
 
 \subsection{Launch the program with arguments}
-\paragraph{•}
 We have done a program which can be launched with or without arguments. When the program is launched, there is a test that checks if there are some arguments, and how many. With $argc$, we have the number of arguments written in the command, and with $argv[i]$, we can pick up the argument to use it in a fonction for example.
 Be careful to not forget that when we wrote for example ./bin/trifocal, it counts like an argument.
 When the user does not give arguments, the default program is executed. It's a program with the three default images, and the three default lists with already the seven points in it.
-
-\newpage
+\paragraph{•}
 \begin{center}
-\begin{figure}
+\begin{figure}[ht]
     \includegraphics[scale=0.4]{defaut.png}
     \caption{Program launched without arguments}
     \label{Picture 1}
@@ -310,7 +315,7 @@ If the user wants, he can give three more arguments, which are the three images 
 
 
 \begin{center}
-\begin{figure}
+\begin{figure}[ht]
     \includegraphics[scale=0.334]{images.png}
     \caption{Program launch with user's pictures}
     \label{Picture 2}
@@ -320,7 +325,7 @@ If the user wants, he can give three more arguments, which are the three images 
 \paragraph{•}
 If the user wants to have his own images and lists of points, he can give six arguments, first the three images, then the three lists. 
 The user can also specify the path of the repository in which he wants the list to be saved, when he gives some arguments. 
-
+\newpage
 \subsection{Undo/Redo}
 We wanted to make undo-redo in the program because currently, if you click a wrong point, you have to start again from the beginning if you don't want to modify the files. In order to do that, we created an undo function that delete the last point. We succeed in modifying the last point clicked of the last list modified. This function is working, the point disappear of the list, but it is still displayed on the screen. 
 So we did not go further. The code is in commentary in the files. 
