@@ -6,6 +6,7 @@ List of the elements
 
 I. Tensor 
 	A. Mathematiques
+A trifocal tensor is a 3x3x3 matrix. It contains 27 elements that we need to calculate. 
 
 	B. Computer science
 

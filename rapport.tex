@@ -1,6 +1,8 @@
 \documentclass{report}
 \usepackage{graphicx}
 \usepackage{algorithm2e}
+\usepackage{geometry}
+\geometry{ hmargin=2.5cm, vmargin=2cm } 
 
 \begin{document}
 \title{Trifocal tensor}
@@ -43,12 +45,14 @@ For each point, we have four equations. So in order to have enough equations, we
 In order to find the tensor, we have to resolve the following system : $At = 0$, where $A$ is a 28x27 matrix and $t = ( T_{1}^{il}, T_{2}^{il}, T_{3}^{il})$ a vector with 27 components.
 
 \subsubsection{Build $A$}
+\paragraph{•}
+
 The first step to resolve the system, is to build the $A$ matrix. Let's call $Ap_{k}^{il}$ the coefficient of the $T_{k}^{il}$ elements in all these equations for the point $p$. We noticed that in each equations, only four tensor coefficients appears. The others are then equal to zero. 
 
 The rows of $A$ corresponds to $( Ap_{1}^{il}  Ap_{2}^{il}  Ap_{3}^{il} )$.
 For each point, there are four rows in the matrix. The first for $i=1$ and $l=1$, the second for $i=1$ and $l=2$, the third for $i=2$ and $l=1$ and the forth for $i=2$ and $l=2$.
 
-
+\paragraph{•}
 Let's take an example with the $p$ point. 
 We obtain the four following equations : 
 \begin{center}
@@ -92,14 +96,15 @@ $Ap_{k}^{33} = -x_{p}^{k} x_{p}^{'i}x_{p}^{''l}$
 $Ap_{k}^{i3} = x_{p}^{k}x_{p}^{'3}x_{p}^{''l}$
 \end{center}
 
-
+\paragraph{•}
 The issue is now to fill the $A$ matrix in the program. The rows are depending on $p$, $i$ and $l$ and the columns on $k$, $i$ and $l$. Here is the pseudocode to fill the matrix $A$. 
 
-Initialize $A$ to 0
 \begin{algorithm}
 \SetLine
 \caption{Fill the matrix $A$}
 \SetLine
+Initialize $A$ to 0
+
 \For {p from 0 to 6}{
 	\For{i from 0 to 1}{
 		\For{l from 0 to 1}{
@@ -118,6 +123,8 @@ Initialize $A$ to 0
 increment $p$ of 1
 }
 \end{algorithm}
+
+\newpage
 \subsubsection{Calculate T}
 Once we have the $A$ matrix, we need to decompose it in $A=UDV^{T}$ with the SVD of the Eigen Library. The $t$ vector is the last column of the $V$ matrix. We can easily pick it up. 
 We don't forget to put the element of $t$ in the real tensor $T$ with the right loops: 
@@ -282,17 +289,29 @@ All the files are saved with the format ask in the subject (row and col at the b
 The lists are loaded at the beginning of the program, according to the options that the user choose. In order to manage the empty list or the list containing a row or column equal to zero, we modified the function loadMatrix() and readMatrixHeader() in mathIO. 
 
 \subsection{Launch the program with arguments}
+\paragraph{•}
 We have done a program which can be launched with or without arguments. When the program is launched, there is a test that checks if there are some arguments, and how many. With $argc$, we have the number of arguments written in the command, and with $argv[i]$, we can pick up the argument to use it in a fonction for example.
 Be careful to not forget that when we wrote for example ./bin/trifocal, it counts like an argument.
 When the user does not give arguments, the default program is executed. It's a program with the three default images, and the three default lists with already the seven points in it.
 
+\newpage
+\begin{center}
+\begin{figure}
+    \includegraphics[scale=0.4]{defaut.png}
+    \caption{La description de la figure}
+    \label{un-identifiant}
+\end{figure} 
+\end{center}
 
+\paragraph{•}
 If the user wants, he can give three more arguments, which are the three images he wants to load. If he loads some images, there will be no list with points. He has to clic the corresponding points on the three images. 
 If the user wants to have his own images and lists of points, he can give six arguments, first the three images, then the three lists. 
 The user can also specify the path of the repository in which he wants the list to be saved, when he gives some arguments. 
 
 \section{Improvement}
 This program can be improved. For example, if we load pictures too big, the program works but does not addapt the size of the images. So we can't see them on our screen and work with it. 
+Zoom to click the point more precisely
+Arrange the options method
 
 \newpage
 \section{Conclusion}

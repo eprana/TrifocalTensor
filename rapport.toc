@@ -2,17 +2,22 @@
 \contentsline {section}{\numberline {0.2}List of the elements}{2}
 \contentsline {section}{\numberline {0.3}Description of the elements encoded}{2}
 \contentsline {subsection}{\numberline {0.3.1}Tensor}{2}
-\contentsline {subsubsection}{Build $A$}{3}
+\contentsline {subsubsection}{Build $A$}{2}
+\contentsline {paragraph}{•}{2}
+\contentsline {paragraph}{•}{2}
+\contentsline {paragraph}{•}{3}
 \contentsline {subsubsection}{Calculate T}{4}
 \contentsline {subsection}{\numberline {0.3.2}Transfert}{4}
-\contentsline {subsubsection}{Transfert on the first image}{5}
-\contentsline {subsubsection}{Transfert on the second image}{5}
-\contentsline {subsubsection}{Transfert on the third image}{6}
-\contentsline {subsubsection}{Use the right transfert}{7}
-\contentsline {subsection}{\numberline {0.3.3}Saving the clicked points}{7}
-\contentsline {subsection}{\numberline {0.3.4}Save or load a list in a file}{7}
-\contentsline {subsubsection}{Saving}{7}
-\contentsline {subsubsection}{Loading}{8}
-\contentsline {subsection}{\numberline {0.3.5}Launch the program with arguments}{8}
-\contentsline {section}{\numberline {0.4}Improvement}{8}
-\contentsline {section}{\numberline {0.5}Conclusion}{9}
+\contentsline {subsubsection}{Transfert on the first image}{4}
+\contentsline {subsubsection}{Transfert on the second image}{4}
+\contentsline {subsubsection}{Transfert on the third image}{5}
+\contentsline {subsubsection}{Use the right transfert}{5}
+\contentsline {subsection}{\numberline {0.3.3}Saving the clicked points}{6}
+\contentsline {subsection}{\numberline {0.3.4}Save or load a list in a file}{6}
+\contentsline {subsubsection}{Saving}{6}
+\contentsline {subsubsection}{Loading}{6}
+\contentsline {subsection}{\numberline {0.3.5}Launch the program with arguments}{6}
+\contentsline {paragraph}{•}{6}
+\contentsline {paragraph}{•}{7}
+\contentsline {section}{\numberline {0.4}Improvement}{7}
+\contentsline {section}{\numberline {0.5}Conclusion}{8}
