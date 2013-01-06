@@ -12,13 +12,13 @@
 \contentsline {subsubsection}{Transfert on the third image}{6}
 \contentsline {subsubsection}{Use the right transfert}{6}
 \contentsline {subsection}{\numberline {2.3}Saving the clicked points}{6}
-\contentsline {subsection}{\numberline {2.4}Save or load a list in a file}{6}
-\contentsline {subsubsection}{Saving}{6}
+\contentsline {subsection}{\numberline {2.4}Save or load a list in a file}{7}
+\contentsline {subsubsection}{Saving}{7}
 \contentsline {subsubsection}{Loading}{7}
 \contentsline {subsection}{\numberline {2.5}Launch the program with arguments}{7}
 \contentsline {paragraph}{•}{7}
 \contentsline {paragraph}{•}{7}
-\contentsline {paragraph}{•}{7}
+\contentsline {paragraph}{•}{8}
 \contentsline {subsection}{\numberline {2.6}Undo/Redo}{8}
 \contentsline {section}{\numberline {3}Improvement}{8}
 \contentsline {subsection}{\numberline {3.1}Resize }{8}

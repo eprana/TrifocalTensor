@@ -19,7 +19,7 @@
 
 \textcolor{title}{\section*{Introduction}}
 \addcontentsline{toc}{section}{Introduction} 
-The aim of this project was to create an application that enables to establish relations between three pictures. The first step consists in clicking on seven points on each picture representing a 3D scene from different point of view. After seven correspondances, the program is enabled to find the position of an element on the third image if you click on the position of the same element on the two others pictures. 
+The aim of this project was to create an application that enables to establish relations between three pictures. The first step consists in clicking on seven points on each picture representing a 3D scene from different points of view. After seven matches, the program is able to find the position of an element on the third picture if you click on the position of the same element on the two other pictures. 
 
 \textcolor{title}{\section{List of the elements}}
 
@@ -27,17 +27,17 @@ The aim of this project was to create an application that enables to establish r
 \item 
 Display the help in english with -h : element requested, encoded and working.  
 \item
-Launch into the consol with the name of the three pictures to load : element requested, encoded and working. 
+Launch of the program into the console with the name of the three pictures to load : element requested, encoded and working. 
 \item
-Launch into the consol with the name of the three lists to load : element requested, encoded and working. 
+Launch of the program into the console with the name of the three lists to load : element requested, encoded and working. 
 \item
-Saving a list of clicked points : element requested, encoded and working.  
+Back-up of a list of clicked points : element requested, encoded and working.  
 \item
 Calculation of a tensor : element requested, encoded and working. 
 \item
-Transfert the points with the tensor : element requested, encoded and working.
+Transfert pf the points with the tensor : element requested, encoded and working.
 \item 
-Launch into the consol with the path of the repository in which save the lists : element not requested, encoded and working.  
+Launch of the program into the console with the path of the repository in which the lists are saved : element not requested, encoded and working.  
 \item 
 Undo/Redo : element not requested, encoded and but not working.  
 
@@ -56,10 +56,10 @@ In order to find the tensor, we have to resolve the following system : $At = 0$,
 \subsubsection{Build $A$}
 \paragraph{•}
 
-The first step to resolve the system, is to build the $A$ matrix. Let's call $Ap_{k}^{il}$ the coefficient of the $T_{k}^{il}$ elements in all these equations for the point $p$. We noticed that in each equations, only four tensor coefficients appears. The others are then equal to zero. 
+The first step to resolve the system, is to build the $A$ matrix. Let's call $Ap_{k}^{il}$ the coefficient of the $T_{k}^{il}$ elements in all these equations for the point $p$. We noticed that in each equation, only four tensor coefficients appear. The other are then equal to zero. 
 
-The rows of $A$ corresponds to $( Ap_{1}^{il}  Ap_{2}^{il}  Ap_{3}^{il} )$.
-For each point, there are four rows in the matrix. The first for $i=1$ and $l=1$, the second for $i=1$ and $l=2$, the third for $i=2$ and $l=1$ and the forth for $i=2$ and $l=2$.
+The rows of $A$ correspond to $( Ap_{1}^{il}  Ap_{2}^{il}  Ap_{3}^{il} )$.
+For each point, there are four rows in the matrix. The first correponds to $i=1$ and $l=1$, the second to $i=1$ and $l=2$, the third to $i=2$ and $l=1$ and the forth to $i=2$ and $l=2$.
 
 \newpage
 Let's take an example with the $p$ point. 
@@ -119,8 +119,11 @@ Initialize $A$ to 0
 		\For{l from 0 to 1}{
 			\For{k from 0 to 2}{
 				$A[4p+2i+l, 9k+3i+l]= -x_{p}^{k}x_{p}^{'3}x_{p}^{''3}$
+				
 				$A[4p+2i+l, 9k+3i+2]= x_{p}^{k}x_{p}^{'3}x_{p}^{''l}$
+				
 				$A[4p+2i+l, 9k+6+l]=  x_{p}^{k}x_{p}^{'i}x_{p}^{''3}$
+				
 				$A[4p+2i+l, 9k+8]= -x_{p}^{k}x_{p}^{'i}x_{p}^{''l}$
 				
 				increment $k$ of 1
@@ -164,7 +167,7 @@ The equation used to transfert the points is the same than the one used for the 
  $ \displaystyle { \sum_{k = 1}^{3}} x_{p}^{k}(x_{p}^{'i}x_{p}^{''3}T_{k}^{3l} - x_{p}^{'3}x_{p}^{''3}T_{k}^{il} - x_{p}^{'i}x_{p}^{''l}T_{k}^{33} + x_{p}^{'3}x_{p}^{''l}T_{k}^{i3})$ 
 \end{center}
 
-Since we have all the informations about the tensor and two of the three points, the new unknowns are the compononents of the third point. We decided to put the homogeneous coordinate to 1 in order to simplify the problem. The system to solve is then $Bx=b$ and not $Bx=0$ as we first thought. $B$ is a 4x2 matrix, $x$ a vector or 2 components and $b$ a vector of 4 components. 
+Since we have all the informations about the tensor and two of the three points, the new unknowns are the components of the third point. We decided to put the homogeneous coordinate to 1 in order to simplify the problem. The system to solve is then $Bx=b$ and not $Bx=0$ as we first thought. $B$ is a 4x2 matrix, $x$ a vector of two components and $b$ a vector of four components. 
 
 Let's call $B_{k}^{il}$ the coefficient of $x_{p}^{k}$ depending on what we take for $i$ and $l$. 
 
@@ -186,6 +189,7 @@ $b^{il} = x_{p}^{'i}T_{3}^{3l} - T_{3}^{il} - x_{p}^{'i}x_{p}^{''l}T_{3}^{33} + 
 
 
 Here is the pseudocode to build $B$ and $b$ for the first transfert : 
+\newpage
 \begin{algorithm}
 \SetLine
 \caption{Build $B$ and $b$}
@@ -195,7 +199,7 @@ Here is the pseudocode to build $B$ and $b$ for the first transfert :
 		\For{k from 0 to 2}{
 
           $ B[2*i + j, k] = x^{'i}T_{2}^{jk} - T_{i}^{jk} - x^{'i}x^{''j}T_{2}^{2k} + x^{''j}T_{i}^{2k}$
-          $ b(2*i + j) = - x^{'i}T_{2}^{j2} - T_{i}^{j2} - x^{'i})x^{'j}T_{2}^{22} + x^{''j}T_{i}^{22};$
+          $ b[2*i + j] = - x^{'i}T_{2}^{j2} - T_{i}^{j2} - x^{'i}x^{'j}T_{2}^{22} + x^{''j}T_{i}^{22}$
 
             increment $k$ of 1
         }    
@@ -207,9 +211,9 @@ Here is the pseudocode to build $B$ and $b$ for the first transfert :
 \end{algorithm}
 
 This time, we applied the SVD with the method solve(b) on the $B$ matrix in order to have $x$. 
-\newpage
+
 \subsubsection{Transfert on the second image}
-We take time to understand the fact that the column of the matrix $B$ were not depending on $k$ anymore, but on $i$ for the second picture and $l$ for the third. Once understood, the method is quite the same. 
+We take time to understand the fact that the columns of the matrix $B$ were not depending on $k$ anymore, but on $i$ for the second picture and $l$ for the third. Once understood, the method is quite the same. 
 
 We can also write the equation like this : 
 
@@ -245,7 +249,9 @@ Since there is the $x_{p}^{k}$ element, we need to have a sum in the loop. Here 
 	increment $i$ of 1
 }
 \end{algorithm}
-We apply the SVD with the method solve(b) on the $B$ matrix in order to get $x$. 
+We apply the SVD with the method solve(b) on the $B$ matrix in order to get $x$.
+
+\newpage 
 \begin{figure}[ht]
    \begin{center}
 	\includegraphics[width=0.8\textwidth]{Tenseur.png}
@@ -294,21 +300,21 @@ Once the transfert working for three pictures, we had to put conditions on the c
 
  
 \textcolor{subtitle}{\subsection{Saving the clicked points}}
-At first, the list were lists of 7 points and when clicking, the first point of the list was changed. It was not a great idea. 
+At first, the lists were lists of 7 points and when clicking, the first point of the list was changed. It was not a great idea. 
 Then we add an eighth point, calculated with the transfert in order to keep the list of the seven points needed to build the tensor. The problem was that we did not save all the points and we were writting in the files with std::ifstream. So we changed the saveMatrix function in order to save as many points as wanted. But it still changed the initial file. 
-We decided to save the point int tmp/list.list with a new method : " << ". A row is just added into the matrix and the file saved for each click. 
+We decided to save the point int tmp/list.list with a new method : $" << "$. A row is just added into the matrix and the file saved for each click. 
 Finally, we created a function (updateMatrix) in order to do the resizing of the matrix and the saving in a file. 
 
 \textcolor{subtitle}{\subsection{Save or load a list in a file}}
 \subsubsection{Saving}
-At the beginning, the list of the clicked points were saved in the initial file. This was a probleme since the user may not want to modify his files. 
-So we decided to save them directly into the repository tmp/ 
-Finally, we had an option for the user. He can specify a repository when he launches the program. the list are then saved in this repository. 
+At the beginning, the lists of the clicked points were saved in the initial file. This was a probleme since the user may not want to modify his files. 
+So we decided to save them directly into the repository tmp/.
+Finally, we had an option for the user. He can specify a repository when he launches the program. The lists are then saved in this repository. 
 
 All the files are saved with the format ask in the subject (row and col at the beginning). In order to do that, we activated the header to true in saveMatrix()in mathIO. 
 
 \subsubsection{Loading}
-The lists are loaded at the beginning of the program, according to the options that the user choose. In order to manage the empty list or the list containing a row or column equal to zero, we modified the function loadMatrix() and readMatrixHeader() in mathIO. 
+The lists are loaded at the beginning of the program, according to the options that the user chooses. In order to manage the empty list or the list containing a row or column equal to zero, we modified the function loadMatrix() and readMatrixHeader() in mathIO. 
 
 \textcolor{subtitle}{\subsection{Launch the program with arguments}}
 We have done a program which can be launched with or without arguments. When the program is launched, there is a test that checks if there are some arguments, and how many. With $argc$, we have the number of arguments written in the command, and with $argv[i]$, we can pick up the argument to use it in a fonction for example.
@@ -326,7 +332,7 @@ When the user does not give arguments, the default program is executed. It's a p
 \paragraph{•}
 If the user wants, he can give three more arguments, which are the three images he wants to load. If he loads some images, there will be no list with points. He has to clic the corresponding points on the three images. 
 
-
+\newpage
 \begin{center}
 \begin{figure}[ht]
     \includegraphics[scale=0.334]{images.png}
@@ -338,7 +344,7 @@ If the user wants, he can give three more arguments, which are the three images 
 \paragraph{•}
 If the user wants to have his own images and lists of points, he can give six arguments, first the three images, then the three lists. 
 The user can also specify the path of the repository in which he wants the list to be saved, when he gives some arguments. 
-\newpage
+
 \textcolor{subtitle}{\subsection{Undo/Redo}}
 We wanted to make undo-redo in the program because currently, if you click a wrong point, you have to start again from the beginning if you don't want to modify the files. In order to do that, we created an undo function that delete the last point. We succeed in modifying the last point clicked of the last list modified. This function is working, the point disappear of the list, but it is still displayed on the screen. 
 So we did not go further. The code is in commentary in the files. 
@@ -347,17 +353,17 @@ So we did not go further. The code is in commentary in the files.
 This program can still be improved. 
 
 \textcolor{subtitle}{\subsection{Resize }}
-Currently, when we load pictures which are to big, the program the program works but does not adapt the size of the images to the size of the screen. So we can't see them on our screen and work with it. 
-We want to resize theses pictures in order to have a window contained in the screen surface. 
+Currently, when we load pictures which are to big, the program works but does not adapt the size of the images to the size of the screen. So we can't see them on our screen and work with it. 
+We want to resize these pictures in order to have a window contained in the screen surface. 
 
 \textcolor{subtitle}{\subsection{Zoom}}
-When we don't load a list of point, launching the program, we have to click on the seven corresponding point to calculate the tensor and use the transfert. But it is difficult to click precisely. So we thought about creating a zoom with SDL rotozoom. We did not had time to implement it, but it is a way to click without to much error.
+When we don't load a list of point, launching the program, we have to click on the seven matching points to calculate the tensor and use the transfert. But it is difficult to click precisely. So we thought about creating a zoom with SDL rotozoom. We did not had time to implement it, but it is a way to click without to much error.
 
 \textcolor{subtitle}{\subsection{Options}}
 The options in the console are working, but are not very precised. We still can work on it in order to manage all the configuration that the user may use. 
 
 \textcolor{subtitle}{\subsection{Undo/Redo}}
-As the undo function is not displayed, we can improve the project with a functionnal undo/redo function. We could delete the points clicked and redo them in case of error. This function is very used in all the program and enable a better user experience. 
+As the undo function is not displayed, we can improve the project with a functionnal undo/redo function. We could delete the points clicked and redo them in case of error. This function is very used in all the programs and enable a better user experience. 
 
 \newpage
 \textcolor{title}{\section*{Conclusion}}
